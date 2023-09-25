@@ -1,0 +1,30 @@
+{
+    "sourceFile": "app/firebase.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 3,
+            "patches": [
+                {
+                    "date": 1695509421494,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1695509429294,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,14 +7,13 @@\n \r\n const firebaseConfig = {\r\n   apiKey: \"AIzaSyAs-_3_7wjeOL3ZJkEz3M-Hb57ekAODvqs\",\r\n   authDomain: \"relly-8d881.firebaseapp.com\",\r\n-  databaseURL: \"https://relly-8d881-default-rtdb.firebaseio.com\",\r\n   projectId: \"relly-8d881\",\r\n   storageBucket: \"relly-8d881.appspot.com\",\r\n   messagingSenderId: \"10387202088\",\r\n   appId: \"1:10387202088:web:0e8d8d86d0fc08d260d51d\"\r\n-};\r\n+}\r\n \r\n // Initialize Firebase\r\n const app = getApps().length ? getApp():  initializeApp(firebaseConfig);\r\n const db = getFirestore(app);\r\n"
+                },
+                {
+                    "date": 1695560644977,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,16 +7,17 @@\n \r\n const firebaseConfig = {\r\n   apiKey: \"AIzaSyAs-_3_7wjeOL3ZJkEz3M-Hb57ekAODvqs\",\r\n   authDomain: \"relly-8d881.firebaseapp.com\",\r\n+  databaseURL: \"https://relly-8d881-default-rtdb.firebaseio.com\",\r\n   projectId: \"relly-8d881\",\r\n   storageBucket: \"relly-8d881.appspot.com\",\r\n   messagingSenderId: \"10387202088\",\r\n   appId: \"1:10387202088:web:0e8d8d86d0fc08d260d51d\"\r\n-}\r\n+};\r\n \r\n // Initialize Firebase\r\n const app = getApps().length ? getApp():  initializeApp(firebaseConfig);\r\n const db = getFirestore(app);\r\n-const auth = getAuth()\r\n+const auth = app.getAuth()\r\n \r\n export {app, auth,db}\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1695560662734,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,7 +17,7 @@\n \r\n // Initialize Firebase\r\n const app = getApps().length ? getApp():  initializeApp(firebaseConfig);\r\n const db = getFirestore(app);\r\n-const auth = app.getAuth()\r\n+const auth = getAuth()\r\n \r\n export {app, auth,db}\n\\ No newline at end of file\n"
+                }
+            ],
+            "date": 1695509421494,
+            "name": "Commit-0",
+            "content": "import firebase, { getApp, getApps } from 'firebase/app'\r\nimport \"firebase/auth\"\r\n\r\nimport { initializeApp, } from \"firebase/app\";\r\nimport { getAuth } from 'firebase/auth';\r\nimport { getFirestore } from 'firebase/firestore';\r\n\r\nconst firebaseConfig = {\r\n  apiKey: \"AIzaSyAs-_3_7wjeOL3ZJkEz3M-Hb57ekAODvqs\",\r\n  authDomain: \"relly-8d881.firebaseapp.com\",\r\n  databaseURL: \"https://relly-8d881-default-rtdb.firebaseio.com\",\r\n  projectId: \"relly-8d881\",\r\n  storageBucket: \"relly-8d881.appspot.com\",\r\n  messagingSenderId: \"10387202088\",\r\n  appId: \"1:10387202088:web:0e8d8d86d0fc08d260d51d\"\r\n};\r\n\r\n// Initialize Firebase\r\nconst app = getApps().length ? getApp():  initializeApp(firebaseConfig);\r\nconst db = getFirestore(app);\r\nconst auth = getAuth()\r\n\r\nexport {app, auth,db}"
+        }
+    ]
+}

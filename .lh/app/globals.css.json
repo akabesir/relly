@@ -1,0 +1,138 @@
+{
+    "sourceFile": "app/globals.css",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 30,
+            "patches": [
+                {
+                    "date": 1695652325053,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1695652337841,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,6 +3,6 @@\n @tailwind utilities;\n \n \n .background{\n-    back\n+    background-color: ;\n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1695653056173,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,6 +3,6 @@\n @tailwind utilities;\n \n \n .background{\n-    background-color: ;\n+    background-color: 8CE8E0;\n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1695653095383,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,6 +3,7 @@\n @tailwind utilities;\n \n \n .background{\n-    background-color: 8CE8E0;\n+    background-color: #8CE8E0;\n+    backg\n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1695653108020,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,6 +4,6 @@\n \n \n .background{\n     background-color: #8CE8E0;\n-    backg\n+    background-image: url(.);\n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1695653139571,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,6 +4,7 @@\n \n \n .background{\n     background-color: #8CE8E0;\n-    background-image: url(.);\n+    opacity: 10%;\n+    background-image: url(./assets/bg.jpg);\n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1695653151095,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,7 +4,7 @@\n \n \n .background{\n     background-color: #8CE8E0;\n-    opacity: 10%;\n+    opacity: 1%;\n     background-image: url(./assets/bg.jpg);\n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1695653158972,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,7 +4,7 @@\n \n \n .background{\n     background-color: #8CE8E0;\n-    opacity: 1%;\n+    opacity: 50%;\n     background-image: url(./assets/bg.jpg);\n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1695653167442,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,7 +4,7 @@\n \n \n .background{\n     background-color: #8CE8E0;\n-    opacity: 50%;\n     background-image: url(./assets/bg.jpg);\n+    back\n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1695653182395,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,6 +5,7 @@\n \n .background{\n     background-color: #8CE8E0;\n     background-image: url(./assets/bg.jpg);\n+    background-size: cover;\n     back\n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1695653201032,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,7 +5,7 @@\n \n .background{\n     background-color: #8CE8E0;\n     background-image: url(./assets/bg.jpg);\n-    background-size: cover;\n-    back\n+    background-size: contain;\n+    background-repeat: no-repeat;\n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1695653206599,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,7 +5,7 @@\n \n .background{\n     background-color: #8CE8E0;\n     background-image: url(./assets/bg.jpg);\n-    background-size: contain;\n+    background-size: cover;\n     background-repeat: no-repeat;\n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1695653259183,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,5 +7,7 @@\n     background-color: #8CE8E0;\n     background-image: url(./assets/bg.jpg);\n     background-size: cover;\n     background-repeat: no-repeat;\n+    background-position: center;\n+\n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1695653267995,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,9 +5,9 @@\n \n .background{\n     background-color: #8CE8E0;\n     background-image: url(./assets/bg.jpg);\n-    background-size: cover;\n+    background-size:;\n     background-repeat: no-repeat;\n     background-position: center;\n \n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1695653280555,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,9 +5,9 @@\n \n .background{\n     background-color: #8CE8E0;\n     background-image: url(./assets/bg.jpg);\n-    background-size:;\n+    background-size:auto\n     background-repeat: no-repeat;\n     background-position: center;\n \n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1695653298759,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,9 +5,9 @@\n \n .background{\n     background-color: #8CE8E0;\n     background-image: url(./assets/bg.jpg);\n-    background-size:auto\n+    background-size: cover;\n     background-repeat: no-repeat;\n     background-position: center;\n \n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1695653303937,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,7 +7,6 @@\n     background-color: #8CE8E0;\n     background-image: url(./assets/bg.jpg);\n     background-size: cover;\n     background-repeat: no-repeat;\n-    background-position: center;\n \n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1695653333725,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,8 +5,8 @@\n \n .background{\n     background-color: #8CE8E0;\n     background-image: url(./assets/bg.jpg);\n-    background-size: cover;\n+\n     background-repeat: no-repeat;\n \n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1695653338775,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,8 +5,8 @@\n \n .background{\n     background-color: #8CE8E0;\n     background-image: url(./assets/bg.jpg);\n-\n+    object-fit: contain;\n     background-repeat: no-repeat;\n \n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1695653344589,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,8 +5,8 @@\n \n .background{\n     background-color: #8CE8E0;\n     background-image: url(./assets/bg.jpg);\n-    object-fit: contain;\n+    object-fit: cover;\n     background-repeat: no-repeat;\n \n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1695653355570,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,7 +6,6 @@\n .background{\n     background-color: #8CE8E0;\n     background-image: url(./assets/bg.jpg);\n     object-fit: cover;\n-    background-repeat: no-repeat;\n \n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1695653375108,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,8 +4,7 @@\n \n \n .background{\n     background-color: #8CE8E0;\n-    background-image: url(./assets/bg.jpg);\n-    object-fit: cover;\n+    \n \n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1695655291071,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,7 +4,6 @@\n \n \n .background{\n     background-color: #8CE8E0;\n-    \n \n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1695655300421,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,6 +4,9 @@\n \n \n .background{\n     background-color: #8CE8E0;\n+}\n \n+.first-welcome-button{\n+    \n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1695655324056,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,6 +7,10 @@\n     background-color: #8CE8E0;\n }\n \n .first-welcome-button{\n-    \n+    color: FFBFBF;\n+}\n+\n+.second-welcome-button{\n+\n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1695655331760,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,9 +7,10 @@\n     background-color: #8CE8E0;\n }\n \n .first-welcome-button{\n-    color: FFBFBF;\n+    color: #FFBFBF;\n+    width: 120px;\n }\n \n .second-welcome-button{\n \n"
+                },
+                {
+                    "date": 1695655342704,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,8 +8,9 @@\n }\n \n .first-welcome-button{\n     color: #FFBFBF;\n+    background-color: white;\n     width: 120px;\n }\n \n .second-welcome-button{\n"
+                },
+                {
+                    "date": 1695655378726,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,9 +9,9 @@\n \n .first-welcome-button{\n     color: #FFBFBF;\n     background-color: white;\n-    width: 120px;\n+    width: 1rem;\n }\n \n .second-welcome-button{\n \n"
+                },
+                {
+                    "date": 1695655387065,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,9 +9,9 @@\n \n .first-welcome-button{\n     color: #FFBFBF;\n     background-color: white;\n-    width: 1rem;\n+    width: 120px;\n }\n \n .second-welcome-button{\n \n"
+                },
+                {
+                    "date": 1695655396512,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -10,9 +10,9 @@\n .first-welcome-button{\n     color: #FFBFBF;\n     background-color: white;\n     width: 120px;\n-    height: 100px;\n+    height: 40px;\n }\n \n .second-welcome-button{\n \n"
+                },
+                {
+                    "date": 1695655512163,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,8 +11,9 @@\n     color: #FFBFBF;\n     background-color: white;\n     width: 200px;\n     height: 30px;\n+    border-radius: 50px;\n }\n \n .second-welcome-button{\n \n"
+                }
+            ],
+            "date": 1695652325053,
+            "name": "Commit-0",
+            "content": "@tailwind base;\n@tailwind components;\n@tailwind utilities;\n\n\n.background{\n    back\n}"
+        }
+    ]
+}

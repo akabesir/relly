@@ -1,0 +1,84 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@media screen and (max-width: 639px) {
+    .background {
+      /* Postavite pozadinsku sliku za telefone */
+      background-image: url('../public/assets/bg-phone.jpg');
+      background-size: 100vw 100vh;
+      object-fit: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+  }
+  
+  /* Media query za tablete (širina između 640px i 767px) */
+  @media screen and (min-width: 640px) and (max-width: 767px) {
+    .background {
+      /* Postavite pozadinsku sliku za tablete */
+      background-image: url('../public/assets/bg-md.jpg');
+      background-size: 100vw 100vh;
+      object-fit: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+  }
+  
+  /* Media query za laptopove (širina između 768px i 1023px) */
+  @media screen and (min-width: 768px) and (max-width: 1023px) {
+    .background {
+      /* Postavite pozadinsku sliku za laptopove */
+      background-image: url('../public/assets/bg-lg.jpg');
+      background-size: 100vw 100vh;
+      object-fit: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+  }
+  
+  /* Media query za velike ekrane (širina veća ili jednaka 1024px) */
+  @media screen and (min-width: 1024px) {
+    .background {
+      /* Postavite pozadinsku sliku za velike ekrane */
+      background-image: url('../public/assets/bg-xl.jpg');
+      background-size: 100vw 100vh;
+      object-fit: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+  }
+  
+  
+.rellyText{
+    color: #363636
+}
+
+.rellyImg{
+    margin-top: -1.5rem;
+}
+  
+
+.first-welcome-button{
+    color: #FFBFBF;
+    background-color: #FAFAFA;
+    width: 12.5rem;
+    height: 2.250rem;
+    border-radius: 3.125rem;
+    margin-bottom: 0.625rem;
+    margin-top: 0.625rem;
+    border: 2.5px 3px 5px 3px solid #B0B0B0;
+    font-weight: 500;
+}
+
+.second-welcome-button{
+    background-color: #FFBFBF;
+    color: #FAFAFA;
+    width: 12.5rem;
+    height: 2.250rem;
+    border-radius: 3.125rem;
+    border: 2.5px 3px 5px 3px solid #D06060;
+    font-weight: 500;
+}
+

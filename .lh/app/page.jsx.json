@@ -1,0 +1,154 @@
+{
+    "sourceFile": "app/page.jsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 34,
+            "patches": [
+                {
+                    "date": 1695501084816,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1695501103575,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,14 +4,8 @@\n import ChatComponent from './components/chatComponent';\n \n export default function Home() {\n   const router = useRouter()\n-  const session = useSession({\n-    required: true,\n-    onUnauthenticated() {\n-      router.push('signIn');\n-    },\n-  });\n \n   return (\n     <main className=\"flex min-h-screen flex-col items-center justify-between p-24\">\n       <div className=\"bg-slate-800 p-3 w-[800px] rounded-md text-white\">\n"
+                },
+                {
+                    "date": 1695505016863,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,13 +4,16 @@\n import ChatComponent from './components/chatComponent';\n \n export default function Home() {\n   const router = useRouter()\n+  const { data: session } = useSession(); \n \n   return (\n     <main className=\"flex min-h-screen flex-col items-center justify-between p-24\">\n       <div className=\"bg-slate-800 p-3 w-[800px] rounded-md text-white\">\n-    \n+      {session ? (\n+          <div>Prijavljeni korisnik: {session.user.email}</div>\n+        ) : null}\n       <button className='text-white' onClick={() => signOut()}>Logout</button>\n       <br></br>\n       <button className='text-white' onClick={() => router.push('plans')}>Upgrade plan</button>\n         <ChatComponent />\n"
+                },
+                {
+                    "date": 1695505055744,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,8 +7,9 @@\n   const router = useRouter()\n   const { data: session } = useSession(); \n \n   return (\n+    <Session\n     <main className=\"flex min-h-screen flex-col items-center justify-between p-24\">\n       <div className=\"bg-slate-800 p-3 w-[800px] rounded-md text-white\">\n       {session ? (\n           <div>Prijavljeni korisnik: {session.user.email}</div>\n"
+                },
+                {
+                    "date": 1695505062513,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,15 +1,15 @@\n 'use client';\n-import { signOut, useSession } from 'next-auth/react';\n+import { SessionProvider, signOut, useSession } from 'next-auth/react';\n import { useRouter } from 'next/navigation';\n import ChatComponent from './components/chatComponent';\n \n export default function Home() {\n   const router = useRouter()\n   const { data: session } = useSession(); \n \n   return (\n-    <Session\n+    <SessionProvider>\n     <main className=\"flex min-h-screen flex-col items-center justify-between p-24\">\n       <div className=\"bg-slate-800 p-3 w-[800px] rounded-md text-white\">\n       {session ? (\n           <div>Prijavljeni korisnik: {session.user.email}</div>\n@@ -19,6 +19,7 @@\n       <button className='text-white' onClick={() => router.push('plans')}>Upgrade plan</button>\n         <ChatComponent />\n       </div>\n     </main>\n+    </SessionProvider>\n   )\n }\n"
+                },
+                {
+                    "date": 1695505121352,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,9 +7,9 @@\n   const router = useRouter()\n   const { data: session } = useSession(); \n \n   return (\n-    <SessionProvider>\n+    <SessionProvider session={session}>\n     <main className=\"flex min-h-screen flex-col items-center justify-between p-24\">\n       <div className=\"bg-slate-800 p-3 w-[800px] rounded-md text-white\">\n       {session ? (\n           <div>Prijavljeni korisnik: {session.user.email}</div>\n"
+                },
+                {
+                    "date": 1695505164067,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,6 @@\n 'use client';\n-import { SessionProvider, signOut, useSession } from 'next-auth/react';\n+import {  signOut, useSession } from 'next-auth/react';\n import { useRouter } from 'next/navigation';\n import ChatComponent from './components/chatComponent';\n \n export default function Home() {\n"
+                },
+                {
+                    "date": 1695505171324,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,9 @@\n 'use client';\n import {  signOut, useSession } from 'next-auth/react';\n import { useRouter } from 'next/navigation';\n import ChatComponent from './components/chatComponent';\n+import SessionProvider from './SessionProvider';\n \n export default function Home() {\n   const router = useRouter()\n   const { data: session } = useSession(); \n"
+                },
+                {
+                    "date": 1695505255402,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,16 +1,15 @@\n 'use client';\n-import {  signOut, useSession } from 'next-auth/react';\n+import { SessionProvider, signOut, useSession } from 'next-auth/react';\n import { useRouter } from 'next/navigation';\n import ChatComponent from './components/chatComponent';\n-import SessionProvider from './SessionProvider';\n \n export default function Home() {\n   const router = useRouter()\n   const { data: session } = useSession(); \n \n   return (\n-    <SessionProvider session={session}>\n+    <SessionProvider session={}>\n     <main className=\"flex min-h-screen flex-col items-center justify-between p-24\">\n       <div className=\"bg-slate-800 p-3 w-[800px] rounded-md text-white\">\n       {session ? (\n           <div>Prijavljeni korisnik: {session.user.email}</div>\n"
+                },
+                {
+                    "date": 1695505327593,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,25 +1,21 @@\n 'use client';\n-import { SessionProvider, signOut, useSession } from 'next-auth/react';\n+import { signOut, useSession } from 'next-auth/react';\n import { useRouter } from 'next/navigation';\n import ChatComponent from './components/chatComponent';\n \n export default function Home() {\n   const router = useRouter()\n-  const { data: session } = useSession(); \n+  const { data: session } = useSession(); // Dohvati trenutnu sesiju\n \n   return (\n-    <SessionProvider session={}>\n     <main className=\"flex min-h-screen flex-col items-center justify-between p-24\">\n       <div className=\"bg-slate-800 p-3 w-[800px] rounded-md text-white\">\n-      {session ? (\n-          <div>Prijavljeni korisnik: {session.user.email}</div>\n-        ) : null}\n+    \n       <button className='text-white' onClick={() => signOut()}>Logout</button>\n       <br></br>\n       <button className='text-white' onClick={() => router.push('plans')}>Upgrade plan</button>\n         <ChatComponent />\n       </div>\n     </main>\n-    </SessionProvider>\n   )\n }\n"
+                },
+                {
+                    "date": 1695506047092,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,13 +1,14 @@\n 'use client';\n import { signOut, useSession } from 'next-auth/react';\n import { useRouter } from 'next/navigation';\n import ChatComponent from './components/chatComponent';\n+import { auth } from './firebase';\n \n export default function Home() {\n   const router = useRouter()\n-  const { data: session } = useSession(); // Dohvati trenutnu sesiju\n \n+  let currentUser = auth.currentUser\n   return (\n     <main className=\"flex min-h-screen flex-col items-center justify-between p-24\">\n       <div className=\"bg-slate-800 p-3 w-[800px] rounded-md text-white\">\n     \n"
+                },
+                {
+                    "date": 1695506054673,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -10,9 +10,9 @@\n   let currentUser = auth.currentUser\n   return (\n     <main className=\"flex min-h-screen flex-col items-center justify-between p-24\">\n       <div className=\"bg-slate-800 p-3 w-[800px] rounded-md text-white\">\n-    \n+      <div>{</div>\n       <button className='text-white' onClick={() => signOut()}>Logout</button>\n       <br></br>\n       <button className='text-white' onClick={() => router.push('plans')}>Upgrade plan</button>\n         <ChatComponent />\n"
+                },
+                {
+                    "date": 1695506060042,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -10,9 +10,9 @@\n   let currentUser = auth.currentUser\n   return (\n     <main className=\"flex min-h-screen flex-col items-center justify-between p-24\">\n       <div className=\"bg-slate-800 p-3 w-[800px] rounded-md text-white\">\n-      <div>{</div>\n+      <div>{currentUser.email}</div>\n       <button className='text-white' onClick={() => signOut()}>Logout</button>\n       <br></br>\n       <button className='text-white' onClick={() => router.push('plans')}>Upgrade plan</button>\n         <ChatComponent />\n"
+                },
+                {
+                    "date": 1695506077100,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,18 +1,16 @@\n 'use client';\n import { signOut, useSession } from 'next-auth/react';\n import { useRouter } from 'next/navigation';\n import ChatComponent from './components/chatComponent';\n-import { auth } from './firebase';\n \n export default function Home() {\n   const router = useRouter()\n \n-  let currentUser = auth.currentUser\n   return (\n     <main className=\"flex min-h-screen flex-col items-center justify-between p-24\">\n       <div className=\"bg-slate-800 p-3 w-[800px] rounded-md text-white\">\n-      <div>{currentUser.email}</div>\n+    \n       <button className='text-white' onClick={() => signOut()}>Logout</button>\n       <br></br>\n       <button className='text-white' onClick={() => router.push('plans')}>Upgrade plan</button>\n         <ChatComponent />\n"
+                },
+                {
+                    "date": 1695510888269,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,6 @@\n 'use client';\n-import { signOut, useSession } from 'next-auth/react';\n+import { SessionProvider, signOut, useSession } from 'next-auth/react';\n import { useRouter } from 'next/navigation';\n import ChatComponent from './components/chatComponent';\n \n export default function Home() {\n"
+                },
+                {
+                    "date": 1695510893434,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,8 +12,11 @@\n     \n       <button className='text-white' onClick={() => signOut()}>Logout</button>\n       <br></br>\n       <button className='text-white' onClick={() => router.push('plans')}>Upgrade plan</button>\n+      <SessionProvider>\n+        \n+      </SessionProvider>\n         <ChatComponent />\n       </div>\n     </main>\n   )\n"
+                },
+                {
+                    "date": 1695511078806,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,22 +1,20 @@\n 'use client';\n-import { SessionProvider, signOut, useSession } from 'next-auth/react';\n+import { signOut, useSession } from 'next-auth/react';\n import { useRouter } from 'next/navigation';\n import ChatComponent from './components/chatComponent';\n \n export default function Home() {\n   const router = useRouter()\n+  const { data: session } = useSession(); // Dohvati trenutnu sesiju\n \n   return (\n     <main className=\"flex min-h-screen flex-col items-center justify-between p-24\">\n       <div className=\"bg-slate-800 p-3 w-[800px] rounded-md text-white\">\n     \n       <button className='text-white' onClick={() => signOut()}>Logout</button>\n       <br></br>\n       <button className='text-white' onClick={() => router.push('plans')}>Upgrade plan</button>\n-      <SessionProvider>\n-        \n-      </SessionProvider>\n         <ChatComponent />\n       </div>\n     </main>\n   )\n"
+                },
+                {
+                    "date": 1695575897084,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,10 +4,16 @@\n import ChatComponent from './components/chatComponent';\n \n export default function Home() {\n   const router = useRouter()\n-  const { data: session } = useSession(); // Dohvati trenutnu sesiju\n \n+  const handleSignOut = async () => {\n+    await signOut();\n+\n+    // Nakon što se korisnik odjavi, preusmerite ga na stranicu za prijavu (signIn)\n+    router.push('/signIn');\n+  };\n+\n   return (\n     <main className=\"flex min-h-screen flex-col items-center justify-between p-24\">\n       <div className=\"bg-slate-800 p-3 w-[800px] rounded-md text-white\">\n     \n"
+                },
+                {
+                    "date": 1695575909052,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,17 +8,16 @@\n \n   const handleSignOut = async () => {\n     await signOut();\n \n-    // Nakon što se korisnik odjavi, preusmerite ga na stranicu za prijavu (signIn)\n     router.push('/signIn');\n   };\n \n   return (\n     <main className=\"flex min-h-screen flex-col items-center justify-between p-24\">\n       <div className=\"bg-slate-800 p-3 w-[800px] rounded-md text-white\">\n     \n-      <button className='text-white' onClick={() => signOut()}>Logout</button>\n+      <button className='text-white' onClick={handleSignOut}>Logout</button>\n       <br></br>\n       <button className='text-white' onClick={() => router.push('plans')}>Upgrade plan</button>\n         <ChatComponent />\n       </div>\n"
+                },
+                {
+                    "date": 1695575926671,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,9 +8,9 @@\n \n   const handleSignOut = async () => {\n     await signOut();\n \n-    router.push('/signIn');\n+    router.push('signIn');\n   };\n \n   return (\n     <main className=\"flex min-h-screen flex-col items-center justify-between p-24\">\n"
+                },
+                {
+                    "date": 1695576029019,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,9 +18,9 @@\n     \n       <button className='text-white' onClick={handleSignOut}>Logout</button>\n       <br></br>\n       <button className='text-white' onClick={() => router.push('plans')}>Upgrade plan</button>\n-        <ChatComponent />\n+      <ChatComponent />\n       </div>\n     </main>\n   )\n }\n"
+                },
+                {
+                    "date": 1695590856685,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,7 @@\n 'use client';\n import { signOut, useSession } from 'next-auth/react';\n+signO\n import { useRouter } from 'next/navigation';\n import ChatComponent from './components/chatComponent';\n \n export default function Home() {\n"
+                },
+                {
+                    "date": 1695590865299,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,6 @@\n 'use client';\n import { signOut, useSession } from 'next-auth/react';\n-signO\n import { useRouter } from 'next/navigation';\n import ChatComponent from './components/chatComponent';\n \n export default function Home() {\n"
+                },
+                {
+                    "date": 1695590920850,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,5 @@\n 'use client';\n-import { signOut, useSession } from 'next-auth/react';\n import { useRouter } from 'next/navigation';\n import ChatComponent from './components/chatComponent';\n \n export default function Home() {\n"
+                },
+                {
+                    "date": 1695590939089,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,15 +1,23 @@\n 'use client';\n import { useRouter } from 'next/navigation';\n import ChatComponent from './components/chatComponent';\n+import { auth } from './firebase';\n \n+\n export default function Home() {\n   const router = useRouter()\n \n   const handleSignOut = async () => {\n-    await signOut();\n+    try {\n+      // Koristite Firebase signOut funkciju za odjavu\n+      await auth.signOut();\n \n-    router.push('signIn');\n+      // Nakon što se korisnik odjavi, preusmjerite ga na stranicu za prijavu (signIn)\n+      router.push('/signIn');\n+    } catch (error) {\n+      console.error('Greška prilikom odjave korisnika:', error);\n+    }\n   };\n \n   return (\n     <main className=\"flex min-h-screen flex-col items-center justify-between p-24\">\n"
+                },
+                {
+                    "date": 1695649330466,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,25 +8,19 @@\n   const router = useRouter()\n \n   const handleSignOut = async () => {\n     try {\n-      // Koristite Firebase signOut funkciju za odjavu\n       await auth.signOut();\n \n-      // Nakon što se korisnik odjavi, preusmjerite ga na stranicu za prijavu (signIn)\n       router.push('/signIn');\n     } catch (error) {\n       console.error('Greška prilikom odjave korisnika:', error);\n     }\n   };\n \n   return (\n     <main className=\"flex min-h-screen flex-col items-center justify-between p-24\">\n-      <div className=\"bg-slate-800 p-3 w-[800px] rounded-md text-white\">\n-    \n-      <button className='text-white' onClick={handleSignOut}>Logout</button>\n-      <br></br>\n-      <button className='text-white' onClick={() => router.push('plans')}>Upgrade plan</button>\n+      \n       <ChatComponent />\n       </div>\n     </main>\n   )\n"
+                },
+                {
+                    "date": 1695649336126,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,11 +17,11 @@\n     }\n   };\n \n   return (\n-    <main className=\"flex min-h-screen flex-col items-center justify-between p-24\">\n+    <main className=\"\">\n       \n       <ChatComponent />\n-      </div>\n+      \n     </main>\n   )\n }\n"
+                },
+                {
+                    "date": 1695649344633,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,22 +6,21 @@\n \n export default function Home() {\n   const router = useRouter()\n \n-  const handleSignOut = async () => {\n-    try {\n-      await auth.signOut();\n+  // const handleSignOut = async () => {\n+  //   try {\n+  //     await auth.signOut();\n \n-      router.push('/signIn');\n-    } catch (error) {\n-      console.error('Greška prilikom odjave korisnika:', error);\n-    }\n-  };\n+  //     router.push('/signIn');\n+  //   } catch (error) {\n+  //     console.error('Greška prilikom odjave korisnika:', error);\n+  //   }\n+  // };\n \n   return (\n     <main className=\"\">\n       \n-      <ChatComponent />\n       \n     </main>\n   )\n }\n"
+                },
+                {
+                    "date": 1695649349996,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,9 +17,9 @@\n   //   }\n   // };\n \n   return (\n-    <main className=\"\">\n+    <div className=\"\">\n       \n       \n     </main>\n   )\n"
+                },
+                {
+                    "date": 1695649703224,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,7 @@\n 'use client';\n import { useRouter } from 'next/navigation';\n-import ChatComponent from './components/chatComponent';\n-import { auth } from './firebase';\n+import Welcome from './components/welcome';\n \n \n export default function Home() {\n   const router = useRouter()\n@@ -20,7 +19,7 @@\n   return (\n     <div className=\"\">\n       \n       \n-    </main>\n+    </div>\n   )\n }\n"
+                },
+                {
+                    "date": 1695649719795,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -16,10 +16,10 @@\n   //   }\n   // };\n \n   return (\n-    <div className=\"\">\n+    <div>\n       \n-      \n+      <Welcome></Welcome>\n     </div>\n   )\n }\n"
+                },
+                {
+                    "date": 1695649740198,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -16,10 +16,27 @@\n   //   }\n   // };\n \n   return (\n-    <div>\n-      \n-      <Welcome></Welcome>\n-    </div>\n+    <div className=\"bg-aqua-blue h-screen flex flex-col justify-between\">\n+    <header className=\"flex justify-between p-4\">\n+      <div className=\"flex items-center\">\n+        <img src=\"/path-to-your-logo.png\" alt=\"Logo\" className=\"h-8 w-8\" />\n+        <p className=\"text-black ml-2\">RELLY</p>\n+      </div>\n+      <button className=\"text-white\">Already have? Sign in!</button>\n+    </header>\n+    <main className=\"flex-grow flex items-center justify-center\">\n+      <div className=\"text-center\">\n+        <img src=\"/path-to-your-image.png\" alt=\"Image\" className=\"h-32 w-32 mx-auto\" />\n+        <p className=\"text-black mt-4\">A buddy you can relly on</p>\n+        <p className=\"text-black\">Advice you can count on.</p>\n+        <button className=\"mt-4 bg-white text-rose p-2 rounded-lg\">Try it for free</button>\n+        <button className=\"mt-2 bg-rose text-white p-2 rounded-lg\">Start Experience</button>\n+      </div>\n+    </main>\n+    <footer className=\"text-center pb-4\">\n+      <button className=\"text-white\">Learn more</button>\n+    </footer>\n+  </div>\n   )\n }\n"
+                },
+                {
+                    "date": 1695649761106,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -16,27 +16,10 @@\n   //   }\n   // };\n \n   return (\n-    <div className=\"bg-aqua-blue h-screen flex flex-col justify-between\">\n-    <header className=\"flex justify-between p-4\">\n-      <div className=\"flex items-center\">\n-        <img src=\"/path-to-your-logo.png\" alt=\"Logo\" className=\"h-8 w-8\" />\n-        <p className=\"text-black ml-2\">RELLY</p>\n-      </div>\n-      <button className=\"text-white\">Already have? Sign in!</button>\n-    </header>\n-    <main className=\"flex-grow flex items-center justify-center\">\n-      <div className=\"text-center\">\n-        <img src=\"/path-to-your-image.png\" alt=\"Image\" className=\"h-32 w-32 mx-auto\" />\n-        <p className=\"text-black mt-4\">A buddy you can relly on</p>\n-        <p className=\"text-black\">Advice you can count on.</p>\n-        <button className=\"mt-4 bg-white text-rose p-2 rounded-lg\">Try it for free</button>\n-        <button className=\"mt-2 bg-rose text-white p-2 rounded-lg\">Start Experience</button>\n-      </div>\n-    </main>\n-    <footer className=\"text-center pb-4\">\n-      <button className=\"text-white\">Learn more</button>\n-    </footer>\n-  </div>\n+    <div>\n+      \n+      <Welcome></Welcome>\n+    </div>\n   )\n }\n"
+                },
+                {
+                    "date": 1695651055702,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,9 +17,8 @@\n   // };\n \n   return (\n     <div>\n-      \n       <Welcome></Welcome>\n     </div>\n   )\n }\n"
+                },
+                {
+                    "date": 1695651063804,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -16,9 +16,9 @@\n   //   }\n   // };\n \n   return (\n-    <div>\n+    <div className='tex'>\n       <Welcome></Welcome>\n     </div>\n   )\n }\n"
+                }
+            ],
+            "date": 1695501084816,
+            "name": "Commit-0",
+            "content": "'use client';\nimport { signOut, useSession } from 'next-auth/react';\nimport { useRouter } from 'next/navigation';\nimport ChatComponent from './components/chatComponent';\n\nexport default function Home() {\n  const router = useRouter()\n  const session = useSession({\n    required: true,\n    onUnauthenticated() {\n      router.push('signIn');\n    },\n  });\n\n  return (\n    <main className=\"flex min-h-screen flex-col items-center justify-between p-24\">\n      <div className=\"bg-slate-800 p-3 w-[800px] rounded-md text-white\">\n    \n      <button className='text-white' onClick={() => signOut()}>Logout</button>\n      <br></br>\n      <button className='text-white' onClick={() => router.push('plans')}>Upgrade plan</button>\n        <ChatComponent />\n      </div>\n    </main>\n  )\n}\n"
+        }
+    ]
+}

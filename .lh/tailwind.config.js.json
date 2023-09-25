@@ -1,0 +1,46 @@
+{
+    "sourceFile": "tailwind.config.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 7,
+            "patches": [
+                {
+                    "date": 1695661873885,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1695661879680,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,8 +13,9 @@\n           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',\n       },\n       colors: {\n         white: '#FAFAFA',\n+        black: '#363636'\n       },\n     },\n   },\n   plugins: [],\n"
+                },
+                {
+                    "date": 1695676206319,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,8 +15,11 @@\n       colors: {\n         white: '#FAFAFA',\n         black: '#363636'\n       },\n+      fontFamily: {\n+        'sans': ['Roboto', ...defaultTheme.fontFamily.sans],\n+      },\n     },\n   },\n   plugins: [],\n }\n"
+                },
+                {
+                    "date": 1695676228423,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,4 +1,7 @@\n+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');\n+\n+\n /** @type {import('tailwindcss').Config} */\n module.exports = {\n   content: [\n     './pages/**/*.{js,ts,jsx,tsx,mdx}',\n@@ -16,9 +19,9 @@\n         white: '#FAFAFA',\n         black: '#363636'\n       },\n       fontFamily: {\n-        'sans': ['Roboto', ...defaultTheme.fontFamily.sans],\n+        'sans': ['Quicksand', ...defaultTheme.fontFamily.sans],\n       },\n     },\n   },\n   plugins: [],\n"
+                },
+                {
+                    "date": 1695676237788,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,4 @@\n-@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');\n-\n-\n /** @type {import('tailwindcss').Config} */\n module.exports = {\n   content: [\n     './pages/**/*.{js,ts,jsx,tsx,mdx}',\n@@ -18,11 +15,9 @@\n       colors: {\n         white: '#FAFAFA',\n         black: '#363636'\n       },\n-      fontFamily: {\n-        'sans': ['Quicksand', ...defaultTheme.fontFamily.sans],\n-      },\n+\n     },\n   },\n   plugins: [],\n }\n"
+                },
+                {
+                    "date": 1695676257434,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,10 +14,9 @@\n       },\n       colors: {\n         white: '#FAFAFA',\n         black: '#363636'\n-      },\n-\n+      }\n     },\n   },\n   plugins: [],\n }\n"
+                },
+                {
+                    "date": 1695676394540,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,10 +13,10 @@\n           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',\n       },\n       colors: {\n         white: '#FAFAFA',\n-        black: '#363636'\n-      }\n+        \n+      },\n     },\n   },\n   plugins: [],\n }\n"
+                },
+                {
+                    "date": 1695676467905,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,9 +13,9 @@\n           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',\n       },\n       colors: {\n         white: '#FAFAFA',\n-        \n+\n       },\n     },\n   },\n   plugins: [],\n"
+                }
+            ],
+            "date": 1695661873884,
+            "name": "Commit-0",
+            "content": "/** @type {import('tailwindcss').Config} */\nmodule.exports = {\n  content: [\n    './pages/**/*.{js,ts,jsx,tsx,mdx}',\n    './components/**/*.{js,ts,jsx,tsx,mdx}',\n    './app/**/*.{js,ts,jsx,tsx,mdx}',\n  ],\n  theme: {\n    extend: {\n      backgroundImage: {\n        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',\n        'gradient-conic':\n          'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',\n      },\n      colors: {\n        white: '#FAFAFA',\n      },\n    },\n  },\n  plugins: [],\n}\n"
+        }
+    ]
+}

@@ -1,0 +1,22 @@
+{
+    "sourceFile": "server/send_message.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1695424159142,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1695424188960,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -28,9 +28,9 @@\n         config : firebaseConfig,\r\n       }),\r\n     });\r\n \r\n-  const prompt = ChatPromptTemplate.fromMessages([\r\n+  const prompt = ChatPromptTemplate.fromPromptMessages([\r\n     [\"system\", system_message],\r\n     new MessagesPlaceholder(\"chat_history\"),\r\n     [\"human\", \"{input}\"],\r\n   ]);\r\n"
+                }
+            ],
+            "date": 1695424159142,
+            "name": "Commit-0",
+            "content": "const { ChatOpenAI } = require(\"langchain/chat_models/openai\");\r\nconst { ConversationSummaryBufferMemory } = require(\"langchain/memory\");\r\nconst { FirestoreChatMessageHistory } = require(\"langchain/stores/message/firestore\");\r\nconst { ConversationChain } = require(\"langchain/chains\");\r\nconst { MessagesPlaceholder, ChatPromptTemplate } = require(\"langchain/prompts\");\r\nconst { firebaseConfig } = require(\"./firebase.js\");\r\n\r\nconst sendMessage = async (user_input, user_id, session_id, api_key, system_message) => {\r\n  \r\n  console.log(firebaseConfig)\r\n  const llm = new ChatOpenAI({\r\n    modelName: \"gpt-3.5-turbo-16k\",\r\n    temperature: 1,\r\n    topP: 1,\r\n    frequencyPenalty: 1,\r\n    presencePenalty: 1,\r\n    openAIApiKey: api_key ,\r\n  });  \r\n\r\n    let user_summary = new ConversationSummaryBufferMemory({\r\n      memoryKey: \"chat_history\",\r\n      llm: llm,\r\n      maxTokenLimit: 10,\r\n      chatHistory: new FirestoreChatMessageHistory({\r\n        collectionName: \"session\",\r\n        sessionId: session_id,\r\n        userId: user_id,\r\n        config : firebaseConfig,\r\n      }),\r\n    });\r\n\r\n  const prompt = ChatPromptTemplate.fromMessages([\r\n    [\"system\", system_message],\r\n    new MessagesPlaceholder(\"chat_history\"),\r\n    [\"human\", \"{input}\"],\r\n  ]);\r\n  \r\n  const chain = new ConversationChain({\r\n    memory: user_summary,\r\n    prompt: prompt,\r\n    llm: llm\r\n    })\r\n\r\n  \r\n  let response = await chain.call({ input: user_input });\r\n\r\n  const aiResponse = response[\"response\"]\r\n  console.log(`New response:${aiResponse}`)\r\n\r\n  const memory = await chain.memory.loadMemoryVariables({})\r\n  console.log(memory)\r\n  \r\n  return aiResponse\r\n\r\n}\r\n\r\nmodule.exports = sendMessage;"
+        }
+    ]
+}
