@@ -1,16 +1,32 @@
 'use client';
 import { signInWithEmailAndPassword } from 'firebase/auth'; 
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import { getFirestore, collection, query, where, getDocs } from "firebase/firestore";
 import { ToastContainer, toast } from 'react-toastify';
 import { auth, db } from '../firebase';
+import Image from 'next/image';
 
 
 export default function Signin() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const router = useRouter();
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    setIsMobile(window.innerWidth <= 768);
+
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   const handleSignIn = async () => {
     try {
@@ -49,83 +65,106 @@ export default function Signin() {
 
   
   return (
-    <>
-    <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
-        <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-          <img
-            className="mx-auto h-10 w-auto"
-            src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
-            alt="Your Company"
-          />
-          <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-white">
-            Sign in to your account
-          </h2>
-        </div>
+<div className={`flex min-h-screen items-center justify-center background text-black`}>
+      <div className="w-full max-w-xl mx-auto flex roundedFirst overflow-hidden">
+        {!isMobile ? (
+          <div className={`w-1/2 p-8 text-center flex flex-col items-center joinRellyBg justify-center  ${isMobile ? '' : 'desktop-height'}`}>
+            <Image
+              src="/assets/relly_wink_pointing_right.png"
+              alt="Image"
+              width={200}
+              height={150}
+              className="rellyImg rounded-lg"
+            />
+            <p className="text-lg mt-2 font-semibold">
+              Hey You're Back!
+            </p>
+          </div>
+        ) : null}
 
-        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <div className="space-y-6">
-            <div>
-              <label htmlFor="email" className="block text-sm font-medium leading-6 text-white">
-                Email address
-              </label>
-              <div className="mt-2">
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  autoComplete="email"
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                  className="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
-                />
-              </div>
+        <div
+          className={`${isMobile ? "w-full" : "w-1/2"} ${
+            isMobile ? "" : "formRellyBg"
+          } p-8  roundedSecond flex flex-col items-center justify-center`}
+        >
+          {isMobile ? (
+            <>
+              <Image
+                src="/assets/relly2.png"
+                alt="Image"
+                width={200}
+                height={150}
+                className="rellyImg rounded-lg mx-auto"
+              />
+             
+              <p className="text-3xl mt-1 font-semibold text-center">
+                Hey You're Back!
+              </p>
+            </>
+          ) : (
+            <>
+              <h2 className="text-2xl hidden md:block font-semibold leading-9 tracking-tight mb-2 text-center">
+                Sign In
+              </h2>
+            </>
+          )}
+
+          <div className="flex flex-col justify-between items-center gap-4 w-full mt-2">
+            <div className="w-3/4">
+              <h2 className="block leading-9 font-semibold tracking-tight text-2xl md:hidden">
+                Sign In
+              </h2>
             </div>
-
-            <div>
-              <div className="flex items-center justify-between">
-                <label htmlFor="password" className="block text-sm font-medium leading-6 text-white">
-                  Password
-                </label>
-                <div className="text-sm">
-                  <div onClick={() => router.push('/forgot-password')} className="cursor-pointer font-semibold text-indigo-400 hover:text-indigo-300">
-                    Forgot password?
-                  </div>
-                </div>
-              </div>
-              <div className="mt-2">
-                <input
-                  id="password"
-                  name="password"
-                  type="password"
-                  autoComplete="current-password"
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                  className="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
-                />
-              </div>
-            </div>
-
-          
-              <button
-                onClick={() => handleSignIn()}
-                disabled={!email || !password}
-                className="disabled:opacity-40 flex w-full justify-center rounded-md bg-indigo-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
-              >
-                Sign in
-              </button>
-       
+            
+            <input
+              id="email"
+              name="email"
+              type="email"
+              placeholder="Email address"
+              autoComplete="email"
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              className={`block ${
+                isMobile ? "w-3/4" : "w-full"
+              }  border-gray-300 py-2 px-3 text-gray-800 shadow-sm rounded border focus:outline-none sm:text-sm`}
+            />
+            <input
+              id="password"
+              name="password"
+              type="password"
+              placeholder="Password"
+              autoComplete="current-password"
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              className={`block ${
+                isMobile ? "w-3/4" : "w-full"
+              }  border-gray-300 py-2 px-3 text-gray-800 shadow-sm rounded border focus:outline-none sm:text-sm`}
+            />
+            
+            <button
+             
+              onClick={() => handleSignIn()}
+              className={`max-w-xs mx-auto py-2 px-4 font-medium ${
+                isMobile ? "customMobileButton" : "customButton"
+              }`}
+            >
+              Sign In
+            </button>
           </div>
 
-    
-            <button onClick={() => router.push('signUp')} className="font-semibold leading-6 text-indigo-400 hover:text-indigo-300">
-              Sign Up
+          <p className="mt-6 text-center text-md font-semibold text-black md:text-sm">
+            Havent started?{" "}
+            <button
+              onClick={() => router.push("signUp")}
+              className="font-semibold leading-6 text-black underline"
+            >
+              Sign In
             </button>
-            <ToastContainer/>
-       
+          </p>
         </div>
       </div>
-    </>
-  )
+    </div>
+  );
 }
 
 

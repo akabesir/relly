@@ -47,6 +47,7 @@
     border-radius: 2.5rem;
 }
 
+
 .roundedFirst{
   
     border-top-left-radius: 1.5rem;
@@ -89,16 +90,13 @@
 @media screen and (max-width: 639px) {
   .background {
     background-image: url('/assets/bg-phone.jpg');
-    background-size: 100vw 100vh;
+    background-size: 100vw 110vh;
     object-fit: cover;
     background-repeat: no-repeat;
     background-position: center;
   }
 
-  .rellyImg {
-    margin-top: 0.5rem;
-    margin-bottom: 0.5rem;
-  }
+ 
 }
 
 @media screen and (min-width: 640px) and (max-width: 767px) {
@@ -129,4 +127,8 @@
     background-repeat: no-repeat;
     background-position: center;
   }
+}
+
+.desktop-height{
+    height: 65vh;
 }
