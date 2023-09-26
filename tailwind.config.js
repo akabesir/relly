@@ -14,7 +14,10 @@ module.exports = {
       },
       colors: {
         white: '#FAFAFA',
-
+        black: '#363636'
+      },
+      fontFamily: {
+        'sans': ['Quicksand', 'sans-serif'],
       },
     },
   },
