@@ -7,10 +7,18 @@ import {
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { auth, db } from "../firebase";
-import { getFirestore, collection, addDoc, serverTimestamp, doc, setDoc } from "firebase/firestore";
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  serverTimestamp,
+  doc,
+  setDoc,
+} from "firebase/firestore";
 import { ToastContainer, toast } from "react-toastify";
 import { uuid } from "uuidv4";
-
+import "../globals.css";
+import Image from "next/image";
 
 export default function signUp() {
   const [email, setEmail] = useState("");
@@ -19,26 +27,45 @@ export default function signUp() {
   const [firstName, setFirstName] = useState("");
   const [userName, setUserName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [currentUser, setCurrentUser] = useState(null); 
+  const [currentUser, setCurrentUser] = useState(null);
   const router = useRouter();
 
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    setIsMobile(window.innerWidth <= 768);
+
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   const crypto = require("crypto");
-  
+
   const signup = async () => {
     try {
-    
-      const authUser = await createUserWithEmailAndPassword(auth, email, password);
-  
+      const authUser = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+
       const salt = crypto.randomBytes(16).toString("hex");
       const hashedPassword = crypto
         .pbkdf2Sync(password, salt, 1000, 64, "sha512")
         .toString("hex");
 
       const user_id = authUser.user.uid;
-      const docId = uuid()
+      const docId = uuid();
 
-      const userRef = doc(db, "users", docId ); 
-    
+      const userRef = doc(db, "users", docId);
+
       await setDoc(userRef, {
         firstName,
         lastName,
@@ -47,15 +74,15 @@ export default function signUp() {
         userName,
         isEmailVerified: false,
         createdAt: serverTimestamp(),
-        userId: user_id
+        userId: user_id,
       });
 
       // await sendEmailVerification(auth.currentUser);
 
       alert("Account created");
-  
+
       await new Promise((resolve) => setTimeout(resolve, 6500));
-  
+
       router.push("signIn");
     } catch (error) {
       console.error("Error:", error);
@@ -64,178 +91,129 @@ export default function signUp() {
       });
     }
   };
-  
 
   return (
-    <>
-      <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
-        <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-          <img
-            className="mx-auto h-10 w-auto"
-            src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
-            alt="Your Company"
-          />
-          <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-white">
-            Sign up
-          </h2>
-        </div>
-
-        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <div className="space-y-6">
-            <div>
-              <label
-                htmlFor="firstName"
-                className="block text-sm font-medium leading-6 text-white"
-              >
-                First Name
-              </label>
-              <div className="mt-2">
-                <input
-                  id="firstName"
-                  name="firstName"
-                  type="text"
-                  onChange={(e) => setFirstName(e.target.value)}
-                  required
-                  className="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
-                />
-              </div>
-            </div>
+    <div className="flex min-h-screen items-center justify-center background">
+      <div className="w-full max-w-xl mx-auto flex roundedFirst overflow-hidden">
+        {!isMobile ? (
+          <div className="w-1/2 p-8 text-center flex flex-col items-center joinRellyBg  justify-center">
+            <Image
+              src="/assets/relly_wink_pointing_right.png"
+              alt="Image"
+              width={200}
+              height={150}
+              className="rellyImg rounded-lg"
+            />
+            <p className={`text-3xl font-bold mt-4`}>Join Relly</p>
+            <p className="text-lg mt-2 font-semibold">
+              Your Trusted Relationship Guide
+            </p>
           </div>
-
-          <div>
-            <label
-              htmlFor="lastName"
-              className="block text-sm font-medium leading-6 text-white"
-            >
-              Last Name
-            </label>
-            <div className="mt-2">
-              <input
-                id="lastName"
-                name="lastName"
-                type="text"
-                onChange={(e) => setLastName(e.target.value)}
-                required
-                className="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
+        ) : null}
+  
+        <div className={`${isMobile ? 'w-full': 'w-1/2'}  p-8 ${isMobile ? '' : 'formRellyBg'} roundedSecond flex flex-col items-center justify-center`}>
+          {isMobile ? (
+            <>
+              <Image
+                src="/assets/relly2.png"
+                alt="Image"
+                width={200}
+                height={150}
+                className="rellyImg rounded-lg mx-auto"
               />
-            </div>
-          </div>
-
-          <div className="space-y-6">
-            <div>
-              <label
-                htmlFor="userName"
-                className="block text-sm font-medium leading-6 text-white"
-              >
-                Username
-              </label>
-              <div className="mt-2">
-                <input
-                  id="userName"
-                  name="userName"
-                  type="text"
-                  onChange={(e) => setUserName(e.target.value)}
-                  required
-                  className="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
-                />
-              </div>
-            </div>
-          </div>
-
-          <div className="space-y-6">
-            <div>
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium leading-6 text-white"
-              >
-                Email address
-              </label>
-              <div className="mt-2">
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  autoComplete="email"
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                  className="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
-                />
-              </div>
-            </div>
-
-            <div>
-              <div className="flex items-center justify-between">
-                <label
-                  htmlFor="password"
-                  className="block text-sm font-medium leading-6 text-white"
-                >
-                  Password
-                </label>
-              </div>
-              <div className="mt-2">
-                <input
-                  id="password"
-                  name="password"
-                  type="password"
-                  autoComplete="current-password"
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                  className="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
-                />
-              </div>
-            </div>
-            <div>
-              <div className="flex items-center justify-between">
-                <label
-                  htmlFor="password"
-                  className="block text-sm font-medium leading-6 text-white"
-                >
-                  Password Again
-                </label>
-              </div>
-              <div className="mt-2">
-                <input
-                  id="passwordAgain"
-                  name="passwordAgain"
-                  type="password"
-                  autoComplete="current-password"
-                  onChange={(e) => setPasswordAgain(e.target.value)}
-                  required
-                  className="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
-                />
-              </div>
-            </div>
-
-            <div>
-              <button
-                disabled={
-                  !email ||
-                  !password ||
-                  !passwordAgain ||
-                  password !== passwordAgain
-                }
-                onClick={() => signup()}
-                className="disabled:opacity-40 flex w-full justify-center rounded-md bg-indigo-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
-              >
+              <p className="text-2xl font-extrabold mt-4 text-center">Join Relly</p>
+              <p className="text-lg mt-2 font-semibold text-center">
+                Your Trusted Relationship Guide
+              </p>
+              <h2 className="md:hidden sm:block leading-9 font-semibold tracking-tight text-xl text-left">
                 Sign Up
-              </button>
-            </div>
-          </div>
+              </h2>
+            </>
+          ) : (
+            <>
+              <h2 className="text-2xl hidden md:block font-semibold leading-9 tracking-tight mb-6 text-center">
+                Get Started
+              </h2>
+            
+            </>
+          )}
+  
+  <div className="space-y-4 w-full">
+  <input
+    id="firstName"
+    name="firstName"
+    type="text"
+    placeholder="First Name"
+    onChange={(e) => setFirstName(e.target.value)}
+    required
+    className={`block ${isMobile ? 'w-3/4' : 'w-full'} mx-auto border-gray-300 py-2 px-3 text-gray-800 shadow-sm rounded sm:text-sm`}
+  />
+  <input
+    id="lastName"
+    name="lastName"
+    type="text"
+    placeholder="Last Name"
+    onChange={(e) => setLastName(e.target.value)}
+    required
+    className={`block ${isMobile ? 'w-3/4' : 'w-full'} mx-auto border-gray-300 py-2 px-3 text-gray-800 shadow-sm rounded sm:text-sm`}
+  />
+  <input
+    id="email"
+    name="email"
+    type="email"
+    placeholder="Email address"
+    autoComplete="email"
+    onChange={(e) => setEmail(e.target.value)}
+    required
+    className={`block ${isMobile ? 'w-3/4' : 'w-full'} mx-auto border-gray-300 py-2 px-3 text-gray-800 shadow-sm rounded sm:text-sm`}
+  />
+  <input
+    id="password"
+    name="password"
+    type="password"
+    placeholder="Password"
+    autoComplete="current-password"
+    onChange={(e) => setPassword(e.target.value)}
+    required
+    className={`block ${isMobile ? 'w-3/4' : 'w-full'} mx-auto border-gray-300 py-2 px-3 text-gray-800 shadow-sm rounded sm:text-sm`}
+  />
+  <input
+    id="passwordAgain"
+    name="passwordAgain"
+    type="password"
+    placeholder="Password Again"
+    autoComplete="current-password"
+    onChange={(e) => setPasswordAgain(e.target.value)}
+    required
+    className={`block ${isMobile ? 'w-3/4' : 'w-full'} mx-auto border-gray-300 py-2 px-3 text-gray-800 shadow-sm rounded sm:text-sm`}
+  />
+  <button
+    disabled={
+      !email ||
+      !password ||
+      !passwordAgain ||
+      password !== passwordAgain
+    }
+    onClick={() => signup()}
+    className={`max-w-xs mx-auto py-2 px-4 font-semibold ${isMobile ? 'customMobileButton': 'customButton'}`}
+  >
+    Sign Up
+  </button>
+</div>
 
-          <p className="mt-10 text-center text-sm text-gray-400">
-            Already a member?{" "}
+          <p className="mt-4 text-center text-sm font-semibold text-black">
+            Already started?{" "}
             <button
               onClick={() => router.push("signIn")}
-              className="font-semibold leading-6 text-indigo-400 hover:text-indigo-300"
+              className="font-semibold leading-6 text-black underline"
             >
               Sign In
             </button>
           </p>
         </div>
-        <ToastContainer></ToastContainer>
       </div>
-    </>
+    </div>
   );
+  
+  
 }
-
-

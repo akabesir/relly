@@ -4,11 +4,18 @@
 @tailwind utilities;
 
 
-
-
-
 .rellyImg{
     margin-top: -1.5rem;
+}
+
+.joinRellyBg{
+    background-color: rgba(255, 191, 191, 0.8);
+    
+}
+
+.formRellyBg{
+    background-color: rgba(250, 250, 250, 0.8);
+
 }
   
 
@@ -35,6 +42,49 @@
     border-radius: 3.125rem;
     font-weight: 500;
 }
+
+.rounded{
+    border-radius: 2.5rem;
+}
+
+.roundedFirst{
+  
+    border-top-left-radius: 1.5rem;
+    border-bottom-left-radius: 1.5rem;
+}
+
+.roundedSecond{
+    border-top-right-radius: 1.5rem;
+    border-bottom-right-radius: 1.5rem;
+}
+
+.customButton {
+    width: 160px;
+    background-color: #FAFAFA;
+    border-radius: 1.5rem;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border: solid #e0e0e0;
+    border-width: 1px 1.5px 2.5px 1.5px;
+  }
+
+.customMobileButton{
+    width: 160px;
+    background-color: #FFBFBF;
+    color: #FAFAFA;
+    border-radius: 1.5rem;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border: solid #FF9090;
+    border-width: 0px 1.5px 2.5px 1.5px;
+}
+  
 
 @media screen and (max-width: 639px) {
   .background {
