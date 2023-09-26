@@ -1,7 +1,7 @@
 'use client';
 import { useRouter } from 'next/navigation';
 import Welcome from './components/welcome';
-
+import SignUp from './signUp/page';
 
 export default function Home() {
   const router = useRouter()
@@ -18,7 +18,7 @@ export default function Home() {
 
   return (
     <div>
-      <Welcome></Welcome>
+      <SignUp></SignUp>
     </div>
   )
 }
