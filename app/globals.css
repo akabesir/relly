@@ -13,7 +13,17 @@
     
 }
 
+.mainColor{
+    background-color: rgba(71, 196, 196, 0.6);
+}
 
+.aiChatColor{
+    background-color: #DFB5F0;
+}
+
+.customChatWidth{
+    max-width: 50rem;
+}
 
 .formRellyBg{
     background-color: rgba(250, 250, 250, 0.8);
@@ -26,6 +36,10 @@
 
 .modalRounded{
     border-radius: 1.5rem;
+}
+
+.textRounded{
+    border-radius: 2.5rem;
 }
 
 .modalColor{
@@ -62,6 +76,12 @@
       border-radius: 2.5rem;
     }
   
+    .inputWidth{
+        width: 50%;
+    }
+    .justify{
+        justify-content: space-around;
+    }
     
   }
   
@@ -73,6 +93,13 @@
       border-radius: 2rem; /* Prilagodite prema potrebi */
     }
   
+    .inputWidth{
+        width: 50%;
+    }
+
+    .justify{
+        justify-content: space-between;
+    }
     
   }
   
@@ -84,7 +111,13 @@
       border-radius: 1.5rem;
     }
   
-    
+    .inputWidth{
+        width: 85%;
+    }
+
+    .justify{
+        justify-content: space-between;
+    }
   }
   
 
