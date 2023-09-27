@@ -257,19 +257,18 @@ export default function SignUp() {
                 <p className="text-lg font-semibold">What do you want me to call you?</p>
                 <div className="flex items-center justify-center mt-2">
                   {" "}
-                  {/* Stilizirajte centriranje i razmak između */}
                   <input
                     type="text"
                     placeholder="Nickname"
                     className="rounded-full py-2 px-4 border border-gray-300 focus:outline-none focus:ring focus:border-blue-300 mr-2"
                   />
+                  <button>
                   <svg
                     width="40"
                     height="35"
                     viewBox="0 0 40 35"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
-                    onClick={setIsModalOpen(false)}
                   >
                     <mask id="path-2-inside-1_1_8" fill="white">
                       <path d="M0 17.5C0 7.83502 7.83502 0 17.5 0H22.5C32.165 0 40 7.83502 40 17.5C40 27.165 32.165 35 22.5 35H17.5C7.83502 35 0 27.165 0 17.5Z" />
@@ -288,6 +287,7 @@ export default function SignUp() {
                       fill="#FAFAFA"
                     />
                   </svg>
+                  </button>
                 </div>
               </div>
             </div>

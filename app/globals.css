@@ -50,6 +50,10 @@
     padding-bottom: 2.5rem;
 }
 
+.modalWidthDesktop{
+    width: 35%;
+}
+
 /* Za velike ekrane (širina ekrana veća od 1200 piksela) */
 @media screen and (min-width: 1200px) {
     .modalPropsDesktop {
