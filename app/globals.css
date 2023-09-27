@@ -13,9 +13,88 @@
     
 }
 
+
+
 .formRellyBg{
     background-color: rgba(250, 250, 250, 0.8);
 
+}
+
+.modalBg{
+    background-color: #FAFAFA;
+}
+
+.modalRounded{
+    border-radius: 1.5rem;
+}
+
+.modalColor{
+    background-color: rgba(224, 224, 224, 0.1);
+    color: #FFABAB;
+    width: 80%;
+}
+
+.buttonContainer {
+    display: flex;
+    flex-direction: column;
+  }
+
+.padding{
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
+    padding-left: 3rem;
+}
+
+.nicknamePadding{
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
+}
+
+/* Za velike ekrane (širina ekrana veća od 1200 piksela) */
+@media screen and (min-width: 1200px) {
+    .modalPropsDesktop {
+      height: 60%;
+      width: 30%;
+      border-radius: 2.5rem;
+    }
+  
+    
+  }
+  
+  /* Za srednje velike ekrane (širina ekrana između 800 i 1200 piksela) */
+  @media screen and (min-width: 800px) and (max-width: 1199px) {
+    .modalPropsDesktop {
+      height: 60%; /* Prilagodite prema potrebi */
+      width: 40%;  /* Prilagodite prema potrebi */
+      border-radius: 2rem; /* Prilagodite prema potrebi */
+    }
+  
+    
+  }
+  
+  /* Za male ekrane (širina ekrana manja ili jednaka 800 piksela) */
+  @media screen and (max-width: 800px) {
+    .modalPropsDesktop {
+      height: 60%;
+      width: 70%;
+      border-radius: 1.5rem;
+    }
+  
+    
+  }
+  
+
+.modalWidthMobile{
+    width: 100%;
+    height: 100vh;
+    border-radius: none;
+
+}
+
+.nicknameModal{
+    width: 100%;
+    height: 70vh;
+    border-radius: none;
 }
   
 
@@ -132,3 +211,4 @@
 .desktop-height{
     height: 65vh;
 }
+

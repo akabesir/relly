@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 69,
+            "activePatchIndex": 70,
             "patches": [
                 {
                     "date": 1695421057675,
@@ -284,6 +284,10 @@
                 {
                     "date": 1695497607075,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,8 +12,9 @@\n   const [nickname, setNickname] = useState(null)\r\n \r\n \r\n   \r\n+\r\n   useEffect(() => {\r\n     const unsubscribe = auth.onAuthStateChanged((user) => {\r\n       setCurrentUser(user);\r\n     });\r\n"
+                },
+                {
+                    "date": 1695801900260,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -240,9 +240,12 @@\n             fill=\"none\"\r\n             xmlns=\"http://www.w3.org/2000/svg\"\r\n             className=\"mr-2\"\r\n           >\r\n-            {/* SVG za \"Relly Notes\" */}\r\n+            <path d=\"M21 8.46286V20.1049C21 23.6871 18.7625 24.8812 16 24.8812H6C3.2375 24.8812 1 23.6871 1 20.1049V8.46286C1 4.58217 3.2375 3.68663 6 3.68663C6 4.42695 6.31246 5.09562 6.82496 5.58518C7.33746 6.07475 8.0375 6.37326 8.8125 6.37326H13.1875C14.7375 6.37326 16 5.16726 16 3.68663C18.7625 3.68663 21 4.58217 21 8.46286Z\" stroke=\"#FFABAB\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\r\n+<path d=\"M16 3.68663C16 5.16726 14.7375 6.37326 13.1875 6.37326H8.8125C8.0375 6.37326 7.33746 6.07475 6.82496 5.58518C6.31246 5.09562 6 4.42695 6 3.68663C6 2.206 7.2625 1 8.8125 1H13.1875C13.9625 1 14.6625 1.29851 15.175 1.78808C15.6875 2.27764 16 2.94632 16 3.68663Z\" stroke=\"#FFABAB\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\r\n+<path d=\"M6 14.1346H11\" stroke=\"#FFABAB\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\r\n+<path d=\"M6 18.9109H16\" stroke=\"#FFABAB\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\r\n           </svg>\r\n           Relly Notes\r\n         </button>\r\n         <button className=\"modalColor rounded-full p-4 mb-4 flex items-center\">\r\n"
                 }
             ],
             "date": 1695421057675,

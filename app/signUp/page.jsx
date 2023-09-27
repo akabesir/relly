@@ -31,6 +31,7 @@ export default function SignUp() {
   const [currentUser, setCurrentUser] = useState(null);
   const router = useRouter();
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -82,9 +83,9 @@ export default function SignUp() {
 
       alert("Account created");
 
-      await new Promise((resolve) => setTimeout(resolve, 6500));
+      setIsModalOpen(true);
 
-      router.push("signIn");
+      await new Promise((resolve) => setTimeout(resolve, 6500));
     } catch (error) {
       console.error("Error:", error);
       toast.error(error.message, {
@@ -94,7 +95,11 @@ export default function SignUp() {
   };
 
   return (
-<div className={`flex min-h-screen items-center justify-center background text-black ${isMobile ? '' : 'desktop-height'}`}>
+    <div
+      className={`flex min-h-screen items-center justify-center background text-black ${
+        isMobile ? "" : "desktop-height"
+      }`}
+    >
       <div className="w-full max-w-xl mx-auto flex roundedFirst overflow-hidden">
         {!isMobile ? (
           <div className="w-1/2 p-8 text-center flex flex-col items-center joinRellyBg  justify-center">
@@ -231,6 +236,63 @@ export default function SignUp() {
             </button>
           </p>
         </div>
+
+        {isModalOpen && (
+          <div className="fixed top-0 left-0 p w-full h-full flex items-center justify-center z-50">
+            <div className="absolute top-0 left-0 w-full h-screen bg-black opacity-50"></div>
+            <div
+              className={`relative modalBg modalRounded nicknamePadding ${
+                isMobile ? "nicknameModal" : "modalPropsDesktop"
+              }`}
+            >
+              <div className="text-center">
+                <Image
+                  src="/assets/relly_hands_together.png"
+                  alt="Success Image"
+                  width={250}
+                  height={200}
+                  className="mx-auto mt-6 "
+                />
+              
+                <p className="text-lg font-semibold">What do you want me to call you?</p>
+                <div className="flex items-center justify-center mt-2">
+                  {" "}
+                  {/* Stilizirajte centriranje i razmak između */}
+                  <input
+                    type="text"
+                    placeholder="Nickname"
+                    className="rounded-full py-2 px-4 border border-gray-300 focus:outline-none focus:ring focus:border-blue-300 mr-2"
+                  />
+                  <svg
+                    width="40"
+                    height="35"
+                    viewBox="0 0 40 35"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    onClick={setIsModalOpen(false)}
+                  >
+                    <mask id="path-2-inside-1_1_8" fill="white">
+                      <path d="M0 17.5C0 7.83502 7.83502 0 17.5 0H22.5C32.165 0 40 7.83502 40 17.5C40 27.165 32.165 35 22.5 35H17.5C7.83502 35 0 27.165 0 17.5Z" />
+                    </mask>
+                    <path
+                      d="M0 17.5C0 7.83502 7.83502 0 17.5 0H22.5C32.165 0 40 7.83502 40 17.5C40 27.165 32.165 35 22.5 35H17.5C7.83502 35 0 27.165 0 17.5Z"
+                      fill="#FFBFBF"
+                    />
+                    <path
+                      d="M-1.5 17.5C-1.5 7.55887 6.55887 -0.5 16.5 -0.5H23.5C33.4411 -0.5 41.5 7.55887 41.5 17.5H38.5C38.5 8.11116 31.3366 0.5 22.5 0.5H17.5C8.66344 0.5 1.5 8.11116 1.5 17.5H-1.5ZM41.5 19C41.5 29.4934 32.9934 38 22.5 38H17.5C7.00659 38 -1.5 29.4934 -1.5 19L1.5 17.5C1.5 25.5081 8.66344 32 17.5 32H22.5C31.3366 32 38.5 25.5081 38.5 17.5L41.5 19ZM17.5 38C7.00659 38 -1.5 29.4934 -1.5 19V17.5C-1.5 7.55887 6.55887 -0.5 16.5 -0.5L17.5 0.5C8.66344 0.5 1.5 8.11116 1.5 17.5C1.5 25.5081 8.66344 32 17.5 32V38ZM23.5 -0.5C33.4411 -0.5 41.5 7.55887 41.5 17.5V19C41.5 29.4934 32.9934 38 22.5 38V32C31.3366 32 38.5 25.5081 38.5 17.5C38.5 8.11116 31.3366 0.5 22.5 0.5L23.5 -0.5Z"
+                      fill="#FF9999"
+                      mask="url(#path-2-inside-1_1_8)"
+                    />
+                    <path
+                      d="M29.3333 12.1675C29.3333 12.5603 29.2263 12.8942 29.0122 13.1692L20.7082 23.8342L19.1484 25.8375C18.9343 26.1125 18.6743 26.25 18.3685 26.25C18.0626 26.25 17.8026 26.1125 17.5885 25.8375L16.0287 23.8342L11.8767 18.5017C11.6626 18.2267 11.5556 17.8928 11.5556 17.5C11.5556 17.1072 11.6626 16.7733 11.8767 16.4983L13.4366 14.4949C13.6507 14.22 13.9106 14.0825 14.2165 14.0825C14.5223 14.0825 14.7823 14.22 14.9964 14.4949L18.3685 18.8405L25.8925 9.16246C26.1066 8.88749 26.3665 8.75 26.6724 8.75C26.9783 8.75 27.2382 8.88749 27.4523 9.16246L29.0122 11.1658C29.2263 11.4408 29.3333 11.7747 29.3333 12.1675Z"
+                      fill="#FAFAFA"
+                    />
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -1,7 +1,7 @@
 'use client';
 import { useRouter } from 'next/navigation';
-import Welcome from './components/welcome';
-import SignUp from './signUp/page';
+import ChatComponent from './components/chatComponent';
+
 
 export default function Home() {
   const router = useRouter()
@@ -18,7 +18,7 @@ export default function Home() {
 
   return (
     <div>
-      <SignUp></SignUp>
+      <ChatComponent></ChatComponent>
     </div>
   )
 }
