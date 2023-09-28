@@ -55,7 +55,7 @@ export default function Signin() {
         position: 'top-right',
         autoClose: 3000,
       });
-      router.push('/');
+      router.push('chat');
     } catch (error) {
       toast.error(error.message);
     }
@@ -68,15 +68,15 @@ export default function Signin() {
 <div className={`flex min-h-screen items-center justify-center background text-black`}>
       <div className="w-full max-w-xl mx-auto flex roundedFirst overflow-hidden">
         {!isMobile ? (
-          <div className={`w-1/2 p-8 text-center flex flex-col items-center joinRellyBg justify-center  ${isMobile ? '' : 'desktop-height'}`}>
+          <div className={`w-1/2 p-8 text-center flex flex-col items-center joinRellyBg justify-center  ${isMobile ? '' : 'signInHeight'}`}>
             <Image
               src="/assets/relly_wink_pointing_right.png"
               alt="Image"
-              width={200}
-              height={150}
+              width={250}
+              height={200}
               className="rellyImg rounded-lg"
             />
-            <p className="text-lg mt-2 font-semibold">
+            <p className="text-2xl mt-2 font-semibold">
               Hey You're Back!
             </p>
           </div>
@@ -106,6 +106,9 @@ export default function Signin() {
               <h2 className="text-2xl hidden md:block font-semibold leading-9 tracking-tight mb-2 text-center">
                 Sign In
               </h2>
+
+
+
             </>
           )}
 
@@ -158,7 +161,7 @@ export default function Signin() {
               onClick={() => router.push("signUp")}
               className="font-semibold leading-6 text-black underline"
             >
-              Sign In
+              Sign Up
             </button>
           </p>
         </div>

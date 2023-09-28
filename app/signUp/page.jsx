@@ -31,7 +31,7 @@ export default function SignUp() {
   const [currentUser, setCurrentUser] = useState(null);
   const router = useRouter();
 
-  const [isModalOpen, setIsModalOpen] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {

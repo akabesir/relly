@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 36,
+            "activePatchIndex": 43,
             "patches": [
                 {
                     "date": 1695501084816,
@@ -152,6 +152,34 @@
                 {
                     "date": 1695800080171,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,8 +17,8 @@\n   // };\r\n \r\n   return (\r\n     <div>\r\n-      <SignUp></SignUp>\r\n+      <ChatComponent></ChatComponent>\r\n     </div>\r\n   )\r\n }\r\n"
+                },
+                {
+                    "date": 1695911123457,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,8 @@\n 'use client';\r\n import { useRouter } from 'next/navigation';\r\n import ChatComponent from './components/chatComponent';\r\n+import Welcome from './components/welcome';\r\n \r\n \r\n export default function Home() {\r\n   const router = useRouter()\r\n"
+                },
+                {
+                    "date": 1695911129445,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,6 @@\n 'use client';\r\n import { useRouter } from 'next/navigation';\r\n-import ChatComponent from './components/chatComponent';\r\n import Welcome from './components/welcome';\r\n \r\n \r\n export default function Home() {\r\n@@ -18,8 +17,8 @@\n   // };\r\n \r\n   return (\r\n     <div>\r\n-      <ChatComponent></ChatComponent>\r\n+      <Welcome></Welcome>\r\n     </div>\r\n   )\r\n }\r\n"
+                },
+                {
+                    "date": 1695912072983,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,8 +17,8 @@\n   // };\r\n \r\n   return (\r\n     <div>\r\n-      <Welcome></Welcome>\r\n+      <ChatComponent></ChatComponent>\r\n     </div>\r\n   )\r\n }\r\n"
+                },
+                {
+                    "date": 1695912079449,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,8 @@\n 'use client';\r\n import { useRouter } from 'next/navigation';\r\n import Welcome from './components/welcome';\r\n+import ChatComponent from './components/chatComponent';\r\n \r\n \r\n export default function Home() {\r\n   const router = useRouter()\r\n"
+                },
+                {
+                    "date": 1695913634565,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,18 +6,9 @@\n \r\n export default function Home() {\r\n   const router = useRouter()\r\n \r\n-  // const handleSignOut = async () => {\r\n-  //   try {\r\n-  //     await auth.signOut();\r\n \r\n-  //     router.push('/signIn');\r\n-  //   } catch (error) {\r\n-  //     console.error('Greška prilikom odjave korisnika:', error);\r\n-  //   }\r\n-  // };\r\n-\r\n   return (\r\n     <div>\r\n       <ChatComponent></ChatComponent>\r\n     </div>\r\n"
+                },
+                {
+                    "date": 1695913818440,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,8 +9,7 @@\n \r\n \r\n   return (\r\n     <div>\r\n-      <ChatComponent></ChatComponent>\r\n     </div>\r\n   )\r\n }\r\n"
+                },
+                {
+                    "date": 1695913824548,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,15 +1,14 @@\n 'use client';\r\n import { useRouter } from 'next/navigation';\r\n import Welcome from './components/welcome';\r\n-import ChatComponent from './components/chatComponent';\r\n \r\n-\r\n export default function Home() {\r\n   const router = useRouter()\r\n \r\n \r\n   return (\r\n     <div>\r\n+      <Welcome></Welcome>\r\n     </div>\r\n   )\r\n }\r\n"
                 }
             ],
             "date": 1695501084816,

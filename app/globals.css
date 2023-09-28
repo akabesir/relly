@@ -13,8 +13,17 @@
     
 }
 
+
 .mainColor{
-    background-color: rgba(71, 196, 196, 0.6);
+    background-color: rgba(71, 196, 196, 0.8);
+}
+
+.logoRounded{
+  border-radius: 3.125rem;
+}
+
+.inputRounded{
+  border-radius: 1rem;
 }
 
 .aiChatColor{
@@ -208,11 +217,17 @@
     background-image: url('/assets/bg-phone.jpg');
     background-size: 100vw 110vh;
     object-fit: cover;
-    background-repeat: no-repeat;
+    background-repeat: repeat;
     background-position: center;
   }
 
- 
+  .chatBg{
+    background-image: url('/assets/chatbg_mobile.jpg');
+    background-size: cover;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
 }
 
 @media screen and (min-width: 640px) and (max-width: 767px) {
@@ -220,6 +235,16 @@
     background-image: url('/assets/bg-md.jpg');
     background-size: 100vw 100vh;
     object-fit: cover;
+    background-repeat: repeat;
+    background-position: center;
+
+    
+  }
+
+  .chatBg{
+    background-image: url('/assets/chatbg_tablet.jpg');
+    background-size: cover;
+    height: 100%;
     background-repeat: no-repeat;
     background-position: center;
   }
@@ -230,6 +255,14 @@
     background-image: url('/assets/bg-lg.jpg');
     background-size: 100vw 100vh;
     object-fit: cover;
+    background-repeat: repeat;
+    background-position: center;
+  }
+
+  .chatBg{
+    background-image: url('/assets/chatbg_laptop.jpg');
+    background-size: cover;
+    height: 100%;
     background-repeat: no-repeat;
     background-position: center;
   }
@@ -240,12 +273,44 @@
     background-image: url('/assets/bg-xl.jpg');
     background-size: 100vw 100vh;
     object-fit: cover;
+    background-repeat: repeat;
+    background-position: center;
+  }
+
+  .chatBg{
+    background-image: url('/assets/chatbg_desktop.jpg');
+    background-size: cover;
+    height: 100%;
     background-repeat: no-repeat;
     background-position: center;
   }
 }
 
+.last-message {
+  margin-bottom: 7.5rem; 
+}
+
+
 .desktop-height{
     height: 65vh;
+}
+
+.signInHeight{
+    height: 55vh;
+}
+
+.userBg{
+  background-color: #A0CFF2; 
+}
+
+.main-navbar-div {
+  position: sticky;
+  top: 0;
+  
+  left: 0; 
+  width: 100%; 
+  background-color: rgba(71, 196, 196, 0.8); 
+ 
+
 }
 

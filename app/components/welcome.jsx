@@ -2,9 +2,12 @@ import Image from 'next/image';
 import React from 'react';
 import { useEffect, useState } from 'react';
 import '../globals.css';
+import { useRouter } from 'next/navigation';
+
 
 const Welcome = () => {
   const [isMobile, setIsMobile] = useState(false);
+  const router = useRouter()
 
   useEffect(() => {
     setIsMobile(window.innerWidth <= 768);
@@ -28,7 +31,7 @@ const Welcome = () => {
           <Image src="/assets/relly-black.png" alt="Logo" width={64} height={64} className='hidden lg:block md:block' />
           <p className="text-black  text-2xl  md:mb-2 font-semibold hidden md:block">RELLY</p>
         </div>
-        <button className="text-white text-xl hidden md:block">Already have? <span className='underline'>Sign in!</span></button>
+        <button className="text-white text-xl hidden md:block" onClick={() => router.push('/signIn')}>Already have? <span className='underline' >Sign in!</span></button>
       </header>
       <main className="flex-grow flex justify-center">
         <div className="text-center flex flex-col items-center a md:flex-row"> 

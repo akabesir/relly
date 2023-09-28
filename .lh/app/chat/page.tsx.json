@@ -1,0 +1,22 @@
+{
+    "sourceFile": "app/chat/page.tsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1695913781849,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1695913788875,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,11 +1,11 @@\n import React from 'react'\r\n \r\n-const q = () => {\r\n+const page = () => {\r\n   return (\r\n     <div>\r\n       \r\n     </div>\r\n   )\r\n }\r\n \r\n-export default q\r\n+export default page\r\n"
+                }
+            ],
+            "date": 1695913781849,
+            "name": "Commit-0",
+            "content": "import React from 'react'\r\n\r\nconst q = () => {\r\n  return (\r\n    <div>\r\n      \r\n    </div>\r\n  )\r\n}\r\n\r\nexport default q\r\n"
+        }
+    ]
+}
