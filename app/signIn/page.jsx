@@ -43,13 +43,12 @@ export default function Signin() {
       const userDoc = querySnapshot.docs[0];
       const userData = userDoc.data();
 
-      if (!userData.isEmailVerified) {
-        // Korisnikova email adresa nije verificirana
-        throw new Error('Email is not verified.');
-      } else {
-        // Koristite Firebase Auth funkciju za prijavu
+      // if (!userData.isEmailVerified) {
+      //   throw new Error('Email is not verified.');
+      // } else {
+      
         await signInWithEmailAndPassword(auth, email, password);
-      }
+      
 
       toast.success('You are signed in.', {
         position: 'top-right',

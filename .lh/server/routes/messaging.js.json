@@ -1,0 +1,38 @@
+{
+    "sourceFile": "server/routes/messaging.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 5,
+            "patches": [
+                {
+                    "date": 1696088954922,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1696091848095,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,9 +4,9 @@\n const sendMessage = require(\"../send_message.js\")\r\n \r\n router.post(\"/send\", async (req, res) => {\r\n     try {\r\n-        const { userMessage, userId, sessionId , nickname } = req.body\r\n+        const { userMessage, userId, sessionId = uuidv4(), nickname } = req.body\r\n \r\n         const api_key = process.env.api_key\r\n         const system_message = process.env.system_message + ` ${nickname}.`\r\n \r\n"
+                },
+                {
+                    "date": 1696092505256,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,9 +9,9 @@\n \r\n         const api_key = process.env.api_key\r\n         const system_message = process.env.system_message + ` ${nickname}.`\r\n \r\n-        const response = await sendMessage(userMessage, userId, sessionId, api_key, system_message)\r\n+        const response = await sendMessage(userMessage, userId, sessionId, api_key, system_message, nickname)\r\n         \r\n         res.json(response)\r\n     } catch (error) {\r\n         console.log(error);\r\n"
+                },
+                {
+                    "date": 1696092694725,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,9 +7,9 @@\n     try {\r\n         const { userMessage, userId, sessionId = uuidv4(), nickname } = req.body\r\n \r\n         const api_key = process.env.api_key\r\n-        const system_message = process.env.system_message + ` ${nickname}.`\r\n+        const system_message = ` ${nickname}.`\r\n \r\n         const response = await sendMessage(userMessage, userId, sessionId, api_key, system_message, nickname)\r\n         \r\n         res.json(response)\r\n"
+                },
+                {
+                    "date": 1696092764191,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,9 +7,9 @@\n     try {\r\n         const { userMessage, userId, sessionId = uuidv4(), nickname } = req.body\r\n \r\n         const api_key = process.env.api_key\r\n-        const system_message = ` ${nickname}.`\r\n+        const system_message = process.env.system_message + ` ${nickname}.`\r\n \r\n         const response = await sendMessage(userMessage, userId, sessionId, api_key, system_message, nickname)\r\n         \r\n         res.json(response)\r\n"
+                },
+                {
+                    "date": 1696092797655,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,9 +9,9 @@\n \r\n         const api_key = process.env.api_key\r\n         const system_message = process.env.system_message + ` ${nickname}.`\r\n \r\n-        const response = await sendMessage(userMessage, userId, sessionId, api_key, system_message, nickname)\r\n+        const response = await sendMessage(userMessage, userId, sessionId, api_key, system_message)\r\n         \r\n         res.json(response)\r\n     } catch (error) {\r\n         console.log(error);\r\n"
+                }
+            ],
+            "date": 1696088954922,
+            "name": "Commit-0",
+            "content": "const router = require('express').Router();\r\nconst { v4: uuidv4 } = require('uuid');\r\nrequire(\"dotenv\").config()\r\nconst sendMessage = require(\"../send_message.js\")\r\n\r\nrouter.post(\"/send\", async (req, res) => {\r\n    try {\r\n        const { userMessage, userId, sessionId , nickname } = req.body\r\n\r\n        const api_key = process.env.api_key\r\n        const system_message = process.env.system_message + ` ${nickname}.`\r\n\r\n        const response = await sendMessage(userMessage, userId, sessionId, api_key, system_message)\r\n        \r\n        res.json(response)\r\n    } catch (error) {\r\n        console.log(error);\r\n        res.status(500).send('Server error');\r\n    }\r\n})\r\n\r\nmodule.exports = router"
+        }
+    ]
+}

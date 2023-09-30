@@ -51,7 +51,9 @@ export default function SignUp() {
   const crypto = require("crypto");
 
   const signup = async () => {
+  
     try {
+  
       const authUser = await createUserWithEmailAndPassword(
         auth,
         email,
@@ -73,19 +75,16 @@ export default function SignUp() {
         lastName,
         email,
         hashedPassword,
-        userName,
-        isEmailVerified: false,
+        userName: userName,
         createdAt: serverTimestamp(),
         userId: user_id,
       });
 
       // await sendEmailVerification(auth.currentUser);
 
-      alert("Account created");
+      alert('Account Created Succesfuly')
 
-      setIsModalOpen(true);
-
-      await new Promise((resolve) => setTimeout(resolve, 6500));
+      router.push('signIn')
     } catch (error) {
       console.error("Error:", error);
       toast.error(error.message, {
@@ -217,7 +216,7 @@ export default function SignUp() {
                 !passwordAgain ||
                 password !== passwordAgain
               }
-              onClick={() => signup()}
+              onClick={()=> setIsModalOpen(true)}
               className={`max-w-xs mx-auto py-2 px-4 font-medium ${
                 isMobile ? "customMobileButton" : "customButton"
               }`}
@@ -260,9 +259,10 @@ export default function SignUp() {
                   <input
                     type="text"
                     placeholder="Nickname"
+                    onChange={(e)=> setUserName(e.target.value)}
                     className="rounded-full py-2 px-4 border border-gray-300 focus:outline-none focus:ring focus:border-blue-300 mr-2"
                   />
-                  <button>
+                  <button onClick={()=> signup()}>
                   <svg
                     width="40"
                     height="35"

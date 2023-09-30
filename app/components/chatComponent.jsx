@@ -21,8 +21,8 @@ const ChatComponent = () => {
   const [chatHistory, setChatHistory] = useState([]);
   const [currentUser, setCurrentUser] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isWriting, setIsWriting] = useState(false);
-
+  const [isWritting, setIsWritting] = useState(false);
+  const [nickname, setNickname] = useState("")
   const router = useRouter();
 
   const [isMobile, setIsMobile] = useState(false);
@@ -46,7 +46,7 @@ const ChatComponent = () => {
       auth.onAuthStateChanged((user) => {
         if (user) {
           setCurrentUser(user);
-          console.log("user is set!");
+         
         } else {
           router.push("/signIn");
         }
@@ -55,6 +55,8 @@ const ChatComponent = () => {
 
     checkForUser();
   }, []);
+
+  
 
   useEffect(() => {
     const getSessionId = async () => {
@@ -82,6 +84,36 @@ const ChatComponent = () => {
 
     getSessionId();
   }, [currentUser]);
+
+  useEffect(() => {
+    const getNickname = async () => {
+      if (currentUser) {
+        const user_id = await currentUser.uid;
+
+        const q = query(
+          collection(db, "users"),
+          where("userId", "==", user_id)
+        );
+        try {
+          const querySnapshot = await getDocs(q);
+          if (!querySnapshot.empty) {
+            querySnapshot.forEach((doc) => {
+              const userData = doc.data();
+              const userName = userData.userName;
+              setNickname(userName)
+            });
+          } else {
+            console.error("Dokument ne postoji");
+          }
+        } catch (error) {
+          console.error("Greška prilikom dohvaćanja dokumenata", error);
+        }
+      }
+    };
+
+    getNickname();
+  }, [currentUser]);
+
 
   useEffect(() => {
     const getChatHistory = async () => {
@@ -115,17 +147,36 @@ const ChatComponent = () => {
 
   const handleSendMessage = async () => {
     if (inputMessage.trim() === "") return;
-  
+
     const timestamp = Timestamp.now();
-  
-    setIsWriting(true);
-  
+
+    setIsWritting(true);
+
     setInputMessage("");
-  
+
     try {
       let sendMessageResponse;
-  
-      if (sessionDocumentId) {
+
+      // if (sessionDocumentId) {
+      //   setChatHistory((prevChatHistory) => [
+      //     {
+      //       type: "human",
+      //       data: { content: inputMessage },
+      //       createdAt: timestamp,
+      //     },
+      //     ...prevChatHistory,
+      //   ]);
+
+      //   sendMessageResponse = await axios.post(
+      //     "http://localhost:5000/message/send",
+      //     {
+      //       userMessage: inputMessage,
+      //       userId: currentUser.uid,
+      //       sessionId: sessionDocumentId,
+      //       nickname: nickname,
+      //     }
+      //   );
+      // } else {
         setChatHistory((prevChatHistory) => [
           {
             type: "human",
@@ -134,36 +185,18 @@ const ChatComponent = () => {
           },
           ...prevChatHistory,
         ]);
-  
+
         sendMessageResponse = await axios.post(
           "http://localhost:5000/message/send",
           {
             userMessage: inputMessage,
             userId: currentUser.uid,
             sessionId: sessionDocumentId,
-            nickname: "NICKNAME",
+            nickname: nickname,
           }
         );
-      } else {
-        setChatHistory((prevChatHistory) => [
-          {
-            type: "human",
-            data: { content: inputMessage },
-            createdAt: timestamp,
-          },
-          ...prevChatHistory,
-        ]);
-  
-        sendMessageResponse = await axios.post(
-          "http://localhost:5000/message/send",
-          {
-            userMessage: inputMessage,
-            userId: currentUser.uid,
-            nickname: "NICKNAME",
-          }
-        );
-      }
-  
+      // }
+
       setChatHistory((prevChatHistory) => [
         {
           type: "ai",
@@ -174,12 +207,10 @@ const ChatComponent = () => {
       ]);
     } catch (error) {
       console.error("Greška prilikom slanja poruke:", error);
-      // Ovdje možete dodati odgovarajuće ponašanje u slučaju greške, na primjer, prikazivanje poruke korisniku.
     } finally {
-      setIsWriting(false);
+      setIsWritting(false);
     }
   };
-  
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -200,7 +231,7 @@ const ChatComponent = () => {
   };
 
   return (
-    <div className="chatBg h-screen">
+    <div className="chatBg min-h-screen">
       <div className="main-navbar-div">
         <div className={`mainColor p-2 flex justify items-center `}>
           <div className="flex items-center justify-center space-x-2 ">
@@ -248,7 +279,7 @@ const ChatComponent = () => {
                   }`}
                 />
               )}
-              
+
               {message.type === "ai" && (
                 <div
                   className={`bg-purple-200 textRounded px-4 py-3 max-w-md text-sm ${
@@ -258,6 +289,7 @@ const ChatComponent = () => {
                   {message.data.content}
                 </div>
               )}
+
               {message.type === "human" && (
                 <div
                   className={`userBg textRounded px-4 py-3 my-3 max-w-md text-sm ${
@@ -269,25 +301,30 @@ const ChatComponent = () => {
               )}
             </div>
           ))}
-           {isWriting && (
-    <div
-      className={`flex items-center space-x-2 justify-start`}
-    >
-      
-      <div
-        className={` 'order-2 mr-2' bg-purple-200 textRounded px-4 max-w-md text-sm ${
-          isMobile ? 'mb-3' : 'none'
-        } `}
-      >
-        Pisane poruke...
-      </div>
-    </div>
-  )}
 
         <div
-          className={`bg-white p-2 inputRounded mx-auto mt-10 inputWidth fixed bottom-10 left-0 right-0`}
+          className={`bg-white p-2 inputRounded mx-auto mt-10 ${isWritting ? 'writtingWidth': 'inputWidth'}   fixed bottom-10 left-0 right-0`}
         >
-          <div className="flex items-center space-x-2">
+          {isWritting ? (
+            <div className={`flex items-center writting-animation justify-center`}>
+              <img
+                src="/assets/relly_face_grin.png"
+                alt="Relly Logo"
+                className={`w-12 h-12 
+            "order-1 mr-2"
+                  `}
+              />
+              <div
+                className={`  bg-purple-200 textRounded px-4 max-w-md text-xl ${
+                  isMobile ? "mb-3" : "none"
+                } `}
+              >
+                Writting...
+              </div>
+            </div>
+          ): (
+            <>
+            <div className="flex items-center space-x-2">
             <svg
               width="25"
               height="25"
@@ -349,7 +386,7 @@ const ChatComponent = () => {
 
             <input
               type="text"
-              disabled={isWriting}
+              disabled={isWritting}
               className={`flex-1 rounded-full p-2 bg-white outline-none `}
               placeholder="Share your thoughts..."
               value={inputMessage}
@@ -377,8 +414,10 @@ const ChatComponent = () => {
               </svg>
             </button>
           </div>
+            </>
+          )}
+          
         </div>
-
       </div>
 
       {isModalOpen && (
