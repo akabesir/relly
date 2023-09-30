@@ -157,26 +157,7 @@ const ChatComponent = () => {
     try {
       let sendMessageResponse;
 
-      // if (sessionDocumentId) {
-      //   setChatHistory((prevChatHistory) => [
-      //     {
-      //       type: "human",
-      //       data: { content: inputMessage },
-      //       createdAt: timestamp,
-      //     },
-      //     ...prevChatHistory,
-      //   ]);
-
-      //   sendMessageResponse = await axios.post(
-      //     "http://localhost:5000/message/send",
-      //     {
-      //       userMessage: inputMessage,
-      //       userId: currentUser.uid,
-      //       sessionId: sessionDocumentId,
-      //       nickname: nickname,
-      //     }
-      //   );
-      // } else {
+      if (sessionDocumentId) {
         setChatHistory((prevChatHistory) => [
           {
             type: "human",
@@ -195,7 +176,26 @@ const ChatComponent = () => {
             nickname: nickname,
           }
         );
-      // }
+      } else if(sessionDocumentId) {
+        setChatHistory((prevChatHistory) => [
+          {
+            type: "human",
+            data: { content: inputMessage },
+            createdAt: timestamp,
+          },
+          ...prevChatHistory,
+        ]);
+
+        sendMessageResponse = await axios.post(
+          "http://localhost:5000/message/send",
+          {
+            userMessage: inputMessage,
+            userId: currentUser.uid,
+      
+            nickname: nickname,
+          }
+        );
+      }
 
       setChatHistory((prevChatHistory) => [
         {
