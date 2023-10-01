@@ -45,10 +45,9 @@ const sendMessage = async (user_input, user_id, session_id, api_key, system_mess
   let response = await chain.call({ input: user_input });
 
   const aiResponse = response["response"]
-  console.log(`New response:${aiResponse}`)
 
   const memory = await chain.memory.loadMemoryVariables({})
-  console.log(memory)
+
   
   return aiResponse
 

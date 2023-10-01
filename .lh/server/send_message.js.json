@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 1,
+            "activePatchIndex": 2,
             "patches": [
                 {
                     "date": 1695424159142,
@@ -12,6 +12,10 @@
                 {
                     "date": 1695424188960,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -28,9 +28,9 @@\n         config : firebaseConfig,\r\n       }),\r\n     });\r\n \r\n-  const prompt = ChatPromptTemplate.fromMessages([\r\n+  const prompt = ChatPromptTemplate.fromPromptMessages([\r\n     [\"system\", system_message],\r\n     new MessagesPlaceholder(\"chat_history\"),\r\n     [\"human\", \"{input}\"],\r\n   ]);\r\n"
+                },
+                {
+                    "date": 1696178502601,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -47,9 +47,9 @@\n   const aiResponse = response[\"response\"]\r\n   console.log(`New response:${aiResponse}`)\r\n \r\n   const memory = await chain.memory.loadMemoryVariables({})\r\n-  console.log(memory)\r\n+\r\n   \r\n   return aiResponse\r\n \r\n }\r\n"
                 }
             ],
             "date": 1695424159142,
