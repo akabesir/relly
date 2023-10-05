@@ -6,9 +6,10 @@ const { getAuth } = require('firebase/auth');
 const { getFirestore } = require('firebase/firestore');
 const admin = require('firebase-admin');
 const serviceAccount = require(process.env.GOOGLE_APPLICATION_CREDENTIALS);
+const apiKey = process.env.FIREBASE_API_KEY
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAs-_3_7wjeOL3ZJkEz3M-Hb57ekAODvqs",
+  apiKey ,
   authDomain: "relly-8d881.firebaseapp.com",
   projectId: "relly-8d881",
   storageBucket: "relly-8d881.appspot.com",

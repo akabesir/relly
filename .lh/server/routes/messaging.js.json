@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 5,
+            "activePatchIndex": 14,
             "patches": [
                 {
                     "date": 1696088954922,
@@ -28,6 +28,42 @@
                 {
                     "date": 1696092797655,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,9 +9,9 @@\n \r\n         const api_key = process.env.api_key\r\n         const system_message = process.env.system_message + ` ${nickname}.`\r\n \r\n-        const response = await sendMessage(userMessage, userId, sessionId, api_key, system_message, nickname)\r\n+        const response = await sendMessage(userMessage, userId, sessionId, api_key, system_message)\r\n         \r\n         res.json(response)\r\n     } catch (error) {\r\n         console.log(error);\r\n"
+                },
+                {
+                    "date": 1696359544332,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,22 +1,49 @@\n const router = require('express').Router();\r\n const { v4: uuidv4 } = require('uuid');\r\n require(\"dotenv\").config()\r\n const sendMessage = require(\"../send_message.js\")\r\n+const { addMessage, getChatMessages } = require(\"../messages/chat_messages.js\")\r\n \r\n router.post(\"/send\", async (req, res) => {\r\n     try {\r\n         const { userMessage, userId, sessionId = uuidv4(), nickname } = req.body\r\n \r\n+        addMessage(userId, userMessage, \"user\")\r\n+\r\n         const api_key = process.env.api_key\r\n         const system_message = process.env.system_message + ` ${nickname}.`\r\n \r\n         const response = await sendMessage(userMessage, userId, sessionId, api_key, system_message)\r\n         \r\n+        if (Array.isArray(response)) {\r\n+            for (let i = 0; i < response.length; i++) {\r\n+                addMessage(userId, response[i], \"relly\")\r\n+            }\r\n+        } else {\r\n+            addMessage(userId, response, \"relly\")\r\n+        }\r\n+\r\n+\r\n         res.json(response)\r\n     } catch (error) {\r\n         console.log(error);\r\n         res.status(500).send('Server error');\r\n     }\r\n })\r\n \r\n+router.get(\"/get\", async (req, res) => {\r\n+    try {\r\n+        const { userId } = req.query\r\n+        \r\n+        response = await getChatMessages(userId)\r\n+\r\n+        res.json(response)\r\n+    } catch (error) {\r\n+        console.log(error);\r\n+        res.status(500).send('Server error');\r\n+    }\r\n+\r\n+\r\n+})\r\n+\r\n module.exports = router\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1696359560900,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,9 +2,9 @@\n const { v4: uuidv4 } = require('uuid');\r\n require(\"dotenv\").config()\r\n const sendMessage = require(\"../send_message.js\")\r\n const { addMessage, getChatMessages } = require(\"../messages/chat_messages.js\")\r\n-\r\n+qury\r\n router.post(\"/send\", async (req, res) => {\r\n     try {\r\n         const { userMessage, userId, sessionId = uuidv4(), nickname } = req.body\r\n \r\n"
+                },
+                {
+                    "date": 1696359568738,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,10 +1,11 @@\n const router = require('express').Router();\r\n const { v4: uuidv4 } = require('uuid');\r\n require(\"dotenv\").config()\r\n const sendMessage = require(\"../send_message.js\")\r\n-const { addMessage, getChatMessages } = require(\"../messages/chat_messages.js\")\r\n-qury\r\n+const { addMessage, getChatMessages } = require(\"../messages/chat_messages.js\");\r\n+const { query } = require('express');\r\n+\r\n router.post(\"/send\", async (req, res) => {\r\n     try {\r\n         const { userMessage, userId, sessionId = uuidv4(), nickname } = req.body\r\n \r\n@@ -32,9 +33,9 @@\n })\r\n \r\n router.get(\"/get\", async (req, res) => {\r\n     try {\r\n-        const { userId } = req.query\r\n+        const { userId } = req.qu\r\n         \r\n         response = await getChatMessages(userId)\r\n \r\n         res.json(response)\r\n"
+                },
+                {
+                    "date": 1696359575975,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,9 +3,9 @@\n require(\"dotenv\").config()\r\n const sendMessage = require(\"../send_message.js\")\r\n const { addMessage, getChatMessages } = require(\"../messages/chat_messages.js\");\r\n const { query } = require('express');\r\n-\r\n+quer\r\n router.post(\"/send\", async (req, res) => {\r\n     try {\r\n         const { userMessage, userId, sessionId = uuidv4(), nickname } = req.body\r\n \r\n@@ -33,9 +33,9 @@\n })\r\n \r\n router.get(\"/get\", async (req, res) => {\r\n     try {\r\n-        const { userId } = req.qu\r\n+        const { userId } = req.query\r\n         \r\n         response = await getChatMessages(userId)\r\n \r\n         res.json(response)\r\n"
+                },
+                {
+                    "date": 1696359583060,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,9 +3,9 @@\n require(\"dotenv\").config()\r\n const sendMessage = require(\"../send_message.js\")\r\n const { addMessage, getChatMessages } = require(\"../messages/chat_messages.js\");\r\n const { query } = require('express');\r\n-quer\r\n+\r\n router.post(\"/send\", async (req, res) => {\r\n     try {\r\n         const { userMessage, userId, sessionId = uuidv4(), nickname } = req.body\r\n \r\n"
+                },
+                {
+                    "date": 1696359618760,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,10 +1,9 @@\n const router = require('express').Router();\r\n const { v4: uuidv4 } = require('uuid');\r\n require(\"dotenv\").config()\r\n const sendMessage = require(\"../send_message.js\")\r\n-const { addMessage, getChatMessages } = require(\"../messages/chat_messages.js\");\r\n-const { query } = require('express');\r\n+const { addMessage, getChatMessages } = require(\"../messages/chat_messages.js\")\r\n \r\n router.post(\"/send\", async (req, res) => {\r\n     try {\r\n         const { userMessage, userId, sessionId = uuidv4(), nickname } = req.body\r\n@@ -33,9 +32,9 @@\n })\r\n \r\n router.get(\"/get\", async (req, res) => {\r\n     try {\r\n-        const { userId } = req.query\r\n+        const { userId } = req.body\r\n         \r\n         response = await getChatMessages(userId)\r\n \r\n         res.json(response)\r\n"
+                },
+                {
+                    "date": 1696360549462,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -30,9 +30,9 @@\n         res.status(500).send('Server error');\r\n     }\r\n })\r\n \r\n-router.get(\"/get\", async (req, res) => {\r\n+router.get(\"/post\", async (req, res) => {\r\n     try {\r\n         const { userId } = req.body\r\n         \r\n         response = await getChatMessages(userId)\r\n"
+                },
+                {
+                    "date": 1696360586053,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -30,9 +30,9 @@\n         res.status(500).send('Server error');\r\n     }\r\n })\r\n \r\n-router.get(\"/post\", async (req, res) => {\r\n+router.get(\"/get\", async (req, res) => {\r\n     try {\r\n         const { userId } = req.body\r\n         \r\n         response = await getChatMessages(userId)\r\n"
+                },
+                {
+                    "date": 1696360649243,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -30,9 +30,9 @@\n         res.status(500).send('Server error');\r\n     }\r\n })\r\n \r\n-router.get(\"/get\", async (req, res) => {\r\n+router.post(\"/get_messages\", async (req, res) => {\r\n     try {\r\n         const { userId } = req.body\r\n         \r\n         response = await getChatMessages(userId)\r\n"
                 }
             ],
             "date": 1696088954922,

@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 2,
+            "activePatchIndex": 4,
             "patches": [
                 {
                     "date": 1695424159142,
@@ -16,6 +16,14 @@
                 {
                     "date": 1696178502601,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -47,9 +47,9 @@\n   const aiResponse = response[\"response\"]\r\n   console.log(`New response:${aiResponse}`)\r\n \r\n   const memory = await chain.memory.loadMemoryVariables({})\r\n-  console.log(memory)\r\n+\r\n   \r\n   return aiResponse\r\n \r\n }\r\n"
+                },
+                {
+                    "date": 1696333437686,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,18 +4,55 @@\n const { ConversationChain } = require(\"langchain/chains\");\r\n const { MessagesPlaceholder, ChatPromptTemplate } = require(\"langchain/prompts\");\r\n const { firebaseConfig } = require(\"./firebase.js\");\r\n \r\n+const countTokens = (text) => {\r\n+  //majorly oversimplified tokenization\r\n+  const tokens = text.split(/\\s+/);\r\n+  return tokens.length;\r\n+}\r\n+\r\n+const condenseMessage = async (message, api_key) => {\r\n+  const llm = new ChatOpenAI({\r\n+    modelName: \"gpt-3.5-turbo-16k\",\r\n+    temperature: 1,\r\n+    topP: 1,\r\n+    frequencyPenalty: 1,\r\n+    presencePenalty: 1,\r\n+    openAIApiKey: api_key,\r\n+    \r\n+  });  \r\n+\r\n+  const system_message = process.env.condense_message\r\n+  const prompt = ChatPromptTemplate.fromMessages([\r\n+    [\"system\", system_message],\r\n+    [\"human\", \"{input}\"],\r\n+  ]);\r\n+  \r\n+  const chain = new ConversationChain({\r\n+    prompt: prompt,\r\n+    llm: llm\r\n+  })\r\n+  \r\n+  let response = await chain.call({ input: message });\r\n+\r\n+  let aiResponse = response[\"response\"]\r\n+\r\n+  aiResponse = aiResponse.replace(/\\n/g, \"/n\");\r\n+\r\n+\r\n+  return aiResponse\r\n+}\r\n+\r\n const sendMessage = async (user_input, user_id, session_id, api_key, system_message) => {\r\n   \r\n-  console.log(firebaseConfig)\r\n   const llm = new ChatOpenAI({\r\n     modelName: \"gpt-3.5-turbo-16k\",\r\n     temperature: 1,\r\n     topP: 1,\r\n     frequencyPenalty: 1,\r\n     presencePenalty: 1,\r\n-    openAIApiKey: api_key ,\r\n+    openAIApiKey: api_key,\r\n   });  \r\n \r\n     let user_summary = new ConversationSummaryBufferMemory({\r\n       memoryKey: \"chat_history\",\r\n@@ -24,13 +61,13 @@\n       chatHistory: new FirestoreChatMessageHistory({\r\n         collectionName: \"session\",\r\n         sessionId: session_id,\r\n         userId: user_id,\r\n-        config : firebaseConfig,\r\n+        config : { ...firebaseConfig, encryptionKey: \"sanjinovkljuc\"},\r\n       }),\r\n     });\r\n \r\n-  const prompt = ChatPromptTemplate.fromPromptMessages([\r\n+  const prompt = ChatPromptTemplate.fromMessages([\r\n     [\"system\", system_message],\r\n     new MessagesPlaceholder(\"chat_history\"),\r\n     [\"human\", \"{input}\"],\r\n   ]);\r\n@@ -43,14 +80,21 @@\n \r\n   \r\n   let response = await chain.call({ input: user_input });\r\n \r\n-  const aiResponse = response[\"response\"]\r\n-  console.log(`New response:${aiResponse}`)\r\n+  let aiResponse = response[\"response\"]\r\n+  console.log(`Base response :${aiResponse} \\n\\n`)\r\n+  \r\n+  const maxTokens = countTokens(aiResponse)\r\n \r\n+  if (maxTokens > 100) {\r\n+    aiResponse = await condenseMessage(aiResponse, api_key)\r\n+  }\r\n+  //this needs to be removed in production as it has overhead\r\n   const memory = await chain.memory.loadMemoryVariables({})\r\n-\r\n+  console.log(memory)\r\n   \r\n+  console.log(`Final response :${aiResponse} \\n\\n`)\r\n   return aiResponse\r\n \r\n }\r\n \r\n"
+                },
+                {
+                    "date": 1696333745368,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -36,11 +36,8 @@\n   let response = await chain.call({ input: message });\r\n \r\n   let aiResponse = response[\"response\"]\r\n \r\n-  aiResponse = aiResponse.replace(/\\n/g, \"/n\");\r\n-\r\n-\r\n   return aiResponse\r\n }\r\n \r\n const sendMessage = async (user_input, user_id, session_id, api_key, system_message) => {\r\n"
                 }
             ],
             "date": 1695424159142,

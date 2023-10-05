@@ -22,10 +22,12 @@ const ChatComponent = () => {
   const [currentUser, setCurrentUser] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isWritting, setIsWritting] = useState(false);
+
   const [nickname, setNickname] = useState("");
   const router = useRouter();
 
   const [isMobile, setIsMobile] = useState(false);
+
 
   useEffect(() => {
     setIsMobile(window.innerWidth <= 768);
@@ -114,59 +116,60 @@ const ChatComponent = () => {
   }, [currentUser]);
 
   useEffect(() => {
-    const getChatHistory = async () => {
-      if (sessionDocumentId) {
-        // Napravite referencu na kolekciju "messages" unutar dokumenta "session"
-        const messagesRef = collection(
-          db,
-          `session/${sessionDocumentId}/messages`
+    const fetchChatHistory = async () => {
+      try {
+        const response = await axios.post(
+          "http://localhost:5000/message/get_messages",
+          {
+            userId: currentUser.uid,
+          }
         );
 
-        // Napravite upit za porukama, sortiranim po "createdAt" u silaznom redoslijedu
-        const q = query(messagesRef, orderBy("createdAt", "desc"));
-
-        try {
-          const querySnapshot = await getDocs(q);
-
-          const messages = [];
-          querySnapshot.forEach((doc) => {
-            const messageData = doc.data();
-            messages.push(messageData);
-          });
-          setChatHistory(messages);
-        } catch (error) {
-          console.error("Greška prilikom dohvaćanja poruka", error);
-        }
+        const chatMessages = response.data;
+        const formattedMessages = chatMessages.map((message) => ({
+          type: message.role === "user" ? "human" : "ai",
+          data: {
+            content: message.content.split("\n").map((line, index, array) => (
+              <React.Fragment key={index}>
+                {line}
+                {index !== array.length - 1 && <br />} 
+              </React.Fragment>
+            )),
+          },
+          createdAt: message.timestamp,
+        }));
+    
+        setChatHistory(formattedMessages);
+      } catch (error) {
+        console.error("Greška prilikom dobijanja poruka:", error);
       }
     };
 
-    getChatHistory();
-  }, [sessionDocumentId]);
+    fetchChatHistory();
+  }, [currentUser.uid]);
 
   const handleSendMessage = async () => {
     if (inputMessage.trim() === "") return;
-
+  
     const timestamp = Timestamp.now();
-
+  
     setIsWritting(true);
-
+  
     setInputMessage("");
-
-    console.log(sessionDocumentId);
-
+  
     try {
       let sendMessageResponse;
-
+  
       if (sessionDocumentId) {
         setChatHistory((prevChatHistory) => [
+          ...prevChatHistory,
           {
             type: "human",
             data: { content: inputMessage },
             createdAt: timestamp,
           },
-          ...prevChatHistory,
         ]);
-
+  
         sendMessageResponse = await axios.post(
           "http://localhost:5000/message/send",
           {
@@ -176,18 +179,17 @@ const ChatComponent = () => {
             nickname: nickname,
           }
         );
-
-        console.log(sendMessageResponse);
+  
       } else {
         setChatHistory((prevChatHistory) => [
+          ...prevChatHistory,
           {
             type: "human",
             data: { content: inputMessage },
             createdAt: timestamp,
           },
-          ...prevChatHistory,
         ]);
-
+  
         sendMessageResponse = await axios.post(
           "http://localhost:5000/message/send",
           {
@@ -196,17 +198,24 @@ const ChatComponent = () => {
             nickname: nickname,
           }
         );
-
-        console.log(sendMessageResponse);
+  
       }
-
+  
+      // Zamijeni sve /n s JSX <br> tagom za AI poruke
+      const aiMessages = sendMessageResponse.data.split("\n").map((content, index, array) => (
+        <React.Fragment key={index}>
+          {content}
+          {index !== array.length - 1 && <br />} 
+        </React.Fragment>
+      ));
+      
       setChatHistory((prevChatHistory) => [
+        ...prevChatHistory,
         {
           type: "ai",
-          data: { content: sendMessageResponse.data },
+          data: { content: aiMessages },
           createdAt: timestamp,
         },
-        ...prevChatHistory,
       ]);
     } catch (error) {
       console.error("Greška prilikom slanja poruke:", error);
@@ -214,7 +223,7 @@ const ChatComponent = () => {
       setIsWritting(false);
     }
   };
-
+  
   const openModal = () => {
     setIsModalOpen(true);
   };
@@ -263,47 +272,44 @@ const ChatComponent = () => {
         </div>
       </div>
       <div className={`p-2  mx-auto customChatWidth chat-container`}>
-        {chatHistory
-          .slice()
-          .reverse()
-          .map((message, index) => (
-            <div
-              key={index}
-              className={`flex items-center space-x-2 ${
-                message.type === "human" ? "justify-end" : "justify-start"
-              } ${index === chatHistory.length - 1 ? "last-message" : ""}`}
-            >
-              {message.type === "ai" && (
-                <img
-                  src="/assets/relly_face_grin.png"
-                  alt="Relly Logo"
-                  className={`w-12 h-12 ${
-                    message.type === "human" ? "order-2 ml-2" : "order-1 mr-2"
-                  }`}
-                />
-              )}
+        {chatHistory.map((message, index) => (
+          <div
+            key={index}
+            className={`flex items-center space-x-2 ${
+              message.type === "human" ? "justify-end" : "justify-start"
+            } ${index === chatHistory.length - 1 ? "last-message" : ""}`}
+          >
+            {message.type === "ai"  && (
+              <img
+                src="/assets/relly_face_grin.png"
+                alt="Relly Logo"
+                className={`w-12 h-12 ${
+                  message.type === "human" ? "order-2 ml-2" : "order-1 mr-2"
+                } `}
+              />
+            )}
 
-              {message.type === "ai" && (
-                <div
-                  className={`bg-purple-200 textRounded px-4 py-3 max-w-md text-sm ${
-                    message.type === "human" ? "order-1 ml-2" : "order-2 mr-2"
-                  } ${isMobile ? "mb-3" : "none"}`}
-                >
-                  {message.data.content}
-                </div>
-              )}
+            {message.type === "ai" && (
+              <div
+                className={`bg-purple-200 textRounded px-4 py-3 max-w-md text-sm ${
+                  message.type === "human" ? "order-1 ml-2" : "order-2 mr-2"
+                } ${isMobile ? "mb-3" : "none"}`}
+              >
+                {message.data.content}
+              </div>
+            )}
 
-              {message.type === "human" && (
-                <div
-                  className={`userBg textRounded px-4 py-3 my-3 max-w-md text-sm ${
-                    message.type === "human" ? "order-1 ml-2" : "order-2 mr-2"
-                  } ${isMobile ? "mb-3" : "none"} `}
-                >
-                  {message.data.content}
-                </div>
-              )}
-            </div>
-          ))}
+            {message.type === "human" && (
+              <div
+                className={`userBg textRounded px-4 py-3 my-3 max-w-md text-sm ${
+                  message.type === "human" ? "order-1 ml-2" : "order-2 mr-2"
+                } ${isMobile ? "mb-3" : "none"} `}
+              >
+                {message.data.content}
+              </div>
+            )}
+          </div>
+        ))}
 
         <div
           className={`bg-white p-2 inputRounded mx-auto mt-10 ${

@@ -1,0 +1,18 @@
+{
+    "sourceFile": "server/routes/send_message.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1696236526950,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1696236526950,
+            "name": "Commit-0",
+            "content": "const { ChatOpenAI } = require(\"langchain/chat_models/openai\");\r\nconst { ConversationSummaryBufferMemory } = require(\"langchain/memory\");\r\nconst { FirestoreChatMessageHistory } = require(\"langchain/stores/message/firestore\");\r\nconst { ConversationChain } = require(\"langchain/chains\");\r\nconst { MessagesPlaceholder, ChatPromptTemplate } = require(\"langchain/prompts\");\r\nconst { firebaseConfig } = require(\"./firebase.js\");\r\n\r\nconst countTokens = (text) => {\r\n  //majorly oversimplified tokenization\r\n  const tokens = text.split(/\\s+/);\r\n  return tokens.length;\r\n}\r\n\r\nconst condenseMessage = async (message, api_key) => {\r\n  const llm = new ChatOpenAI({\r\n    modelName: \"gpt-3.5-turbo-16k\",\r\n    temperature: 1,\r\n    topP: 1,\r\n    frequencyPenalty: 1,\r\n    presencePenalty: 1,\r\n    openAIApiKey: api_key,\r\n    \r\n  });  \r\n\r\n  const system_message = process.env.condense_message\r\n  const prompt = ChatPromptTemplate.fromMessages([\r\n    [\"system\", system_message],\r\n    [\"human\", \"{input}\"],\r\n  ]);\r\n  \r\n  const chain = new ConversationChain({\r\n    prompt: prompt,\r\n    llm: llm\r\n  })\r\n  \r\n  let response = await chain.call({ input: message });\r\n\r\n  let aiResponse = response[\"response\"]\r\n\r\n  return aiResponse\r\n}\r\n\r\nconst sendMessage = async (user_input, user_id, session_id, api_key, system_message) => {\r\n  \r\n  const llm = new ChatOpenAI({\r\n    modelName: \"gpt-3.5-turbo-16k\",\r\n    temperature: 1,\r\n    topP: 1,\r\n    frequencyPenalty: 1,\r\n    presencePenalty: 1,\r\n    openAIApiKey: api_key,\r\n  });  \r\n\r\n    let user_summary = new ConversationSummaryBufferMemory({\r\n      memoryKey: \"chat_history\",\r\n      llm: llm,\r\n      maxTokenLimit: 10,\r\n      chatHistory: new FirestoreChatMessageHistory({\r\n        collectionName: \"session\",\r\n        sessionId: session_id,\r\n        userId: user_id,\r\n        config : { ...firebaseConfig, encryptionKey: \"sanjinovkljuc\"},\r\n      }),\r\n    });\r\n\r\n  const prompt = ChatPromptTemplate.fromMessages([\r\n    [\"system\", system_message],\r\n    new MessagesPlaceholder(\"chat_history\"),\r\n    [\"human\", \"{input}\"],\r\n  ]);\r\n  \r\n  const chain = new ConversationChain({\r\n    memory: user_summary,\r\n    prompt: prompt,\r\n    llm: llm\r\n    })\r\n\r\n  \r\n  let response = await chain.call({ input: user_input });\r\n\r\n  let aiResponse = response[\"response\"]\r\n  console.log(`Base response :${aiResponse} \\n\\n`)\r\n  \r\n  const maxTokens = countTokens(aiResponse)\r\n\r\n  if (maxTokens > 100) {\r\n    aiResponse = await condenseMessage(aiResponse, api_key)\r\n  }\r\n  //this needs to be removed in production as it has overhead\r\n  const memory = await chain.memory.loadMemoryVariables({})\r\n  \r\n  console.log(`Final response :${aiResponse} \\n\\n`)\r\n  return aiResponse\r\n\r\n}\r\n\r\nmodule.exports = sendMessage;"
+        }
+    ]
+}

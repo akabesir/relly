@@ -12,6 +12,6 @@ app.use('/message', require('./routes/messaging'));
 
 //server listening for requests
 app.listen(process.env.server_port || 5000, ()=> {
-    console.log('server is running on port 5000');
+    console.log('server is running');
 })
 
