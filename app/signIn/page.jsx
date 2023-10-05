@@ -76,7 +76,7 @@ export default function Signin() {
               className="rellyImg rounded-lg"
             />
             <p className="text-2xl mt-2 font-semibold">
-              Hey You're Back!
+              Hey You Are Back!
             </p>
           </div>
         ) : null}
@@ -97,7 +97,7 @@ export default function Signin() {
               />
              
               <p className="text-3xl mt-1 font-semibold text-center">
-                Hey You're Back!
+                Hey You Are Back!
               </p>
             </>
           ) : (
