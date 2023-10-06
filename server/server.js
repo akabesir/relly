@@ -5,7 +5,11 @@ require("dotenv").config();
 
 //middleware
 app.use(express.json()); //res.body
-app.use(cors());
+app.use(cors({
+    origin: 'https://rellyv2.vercel.app/', // specify the allowed origin
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', // specify allowed methods
+    credentials: true, // enable credentials (cookies, authorization headers, etc.)
+  }));
 
 //messaging route
 app.use('/message', require('./routes/messaging'));
