@@ -171,7 +171,7 @@ const ChatComponent = () => {
         ]);
   
         sendMessageResponse = await axios.post(
-          "https://rellyv2.vercel.app/chat/message/send",
+          "https://rellyv2.vercel.app/message/send",
           {
             userMessage: inputMessage,
             userId: currentUser.uid,
@@ -191,7 +191,7 @@ const ChatComponent = () => {
         ]);
   
         sendMessageResponse = await axios.post(
-          "https://rellyv2.vercel.app/chat/message/send",
+          "https://rellyv2.vercel.app/message/send",
           {
             userMessage: inputMessage,
             userId: currentUser.uid,
