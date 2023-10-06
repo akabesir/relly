@@ -5,7 +5,7 @@ const { initializeApp } = firebaseApp;
 const { getAuth } = require('firebase/auth');
 const { getFirestore } = require('firebase/firestore');
 const admin = require('firebase-admin');
-const serviceAccount = require(process.env.GOOGLE_APPLICATION_CREDENTIALS);
+const serviceAccount = require('./relly-8d881-firebase-adminsdk-xaac7-9fd3ea5f0e.json');
 const apiKey = process.env.FIREBASE_API_KEY
 
 const firebaseConfig = {
