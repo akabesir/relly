@@ -119,7 +119,7 @@ const ChatComponent = () => {
     const fetchChatHistory = async () => {
       try {
         const response = await axios.post(
-          "https://relly-api.vercel.app/message/get_messages",
+          "https://relly-api-2ec2c3ee3308.herokuapp.com/message/get_messages",
           {
             userId: currentUser.uid,
           }
@@ -171,7 +171,7 @@ const ChatComponent = () => {
         ]);
   
         sendMessageResponse = await axios.post(
-          "https://relly-api.vercel.app/message/send",
+          "https://relly-api-2ec2c3ee3308.herokuapp.com/message/send",
           {
             userMessage: inputMessage,
             userId: currentUser.uid,
@@ -191,7 +191,7 @@ const ChatComponent = () => {
         ]);
   
         sendMessageResponse = await axios.post(
-          "https://relly-api.vercel.app/message/send",
+          "https://relly-api-2ec2c3ee3308.herokuapp.com/message/send",
           {
             userMessage: inputMessage,
             userId: currentUser.uid,
