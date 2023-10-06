@@ -119,7 +119,7 @@ const ChatComponent = () => {
     const fetchChatHistory = async () => {
       try {
         const response = await axios.post(
-          "https://rellyv2.vercel.app/message/get_messages",
+          "https://rellyv2.vercel.app/chat/message/get_messages",
           {
             userId: currentUser.uid,
           }
@@ -171,7 +171,7 @@ const ChatComponent = () => {
         ]);
   
         sendMessageResponse = await axios.post(
-          "https://rellyv2.vercel.app/message/send",
+          "https://rellyv2.vercel.app/chat/message/send",
           {
             userMessage: inputMessage,
             userId: currentUser.uid,
@@ -191,7 +191,7 @@ const ChatComponent = () => {
         ]);
   
         sendMessageResponse = await axios.post(
-          "https://rellyv2.vercel.app/message/send",
+          "https://rellyv2.vercel.app/chat/message/send",
           {
             userMessage: inputMessage,
             userId: currentUser.uid,

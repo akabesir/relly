@@ -39,11 +39,11 @@ const Welcome = () => {
           <Image src="/assets/relly.png" alt="Image" width={isMobile ? 275 : 350} height={isMobile ? 275 : 350} className='rellyImg'/>
           <div className="md:ml-4"> 
             <p className="text-black text-xl tracking-wider font-semibold mb-3 md:text-2xl md:mr-4 lg:mr-0">A Buddy You Can Rely On. Advice <br></br> You Can Count On.</p>
-            <button className="first-welcome-button">Try it for free</button>
+            <button className="first-welcome-button" onClick={() => router.push('/signUp')}>Try it for free</button>
             <br />
             <button className="second-welcome-button">Start Experience</button>
             <br />
-            <button className="text-white md:hidden sm:block mt-2">Already have? <span className='underline'>Sign in!</span></button>
+            <button className="text-white md:hidden sm:block mt-2" onClick={() => router.push('/signIn')}>Already have? <span className='underline'>Sign in!</span></button>
 
           </div>
         </div>
