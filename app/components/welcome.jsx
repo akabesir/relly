@@ -25,7 +25,7 @@ const Welcome = () => {
   }, []);
 
   return (
-    <div className="background flex flex-col justify-between align-center h-screen p-4 md:p-0">
+    <div className="background flex flex-col justify-between items-center h-screen p-4 md:p-0">
       <header className="flex md:justify-between lg:justify-around p-4">
         <div className="flex items-center">
           <Image src="/assets/relly-black.png" alt="Logo" width={64} height={64} className='hidden lg:block md:block' />
