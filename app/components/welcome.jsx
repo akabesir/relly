@@ -25,15 +25,15 @@ const Welcome = () => {
   }, []);
 
   return (
-    <div className="background flex flex-col justify-between items-center h-screen p-4 md:p-0">
+    <div className="background flex flex-col justify-between  h-screen p-4 md:p-0">
       <header className="flex md:justify-between lg:justify-around p-4">
         <div className="flex items-center">
           <Image src="/assets/relly-black.png" alt="Logo" width={64} height={64} className='hidden lg:block md:block' />
-          <p className="text-black  text-2xl  mb-2 font-semibold hidden md:block">RELLY</p>
+          <p className={`text-black  text-2xl  mb-2 font-semibold hidden md:block ${isMobile ? 'items-center' : 'none'}`}>RELLY</p>
         </div>
         <button className="text-white text-xl hidden md:block" onClick={() => router.push('/signIn')}>Already have? <span className='underline' >Sign in!</span></button>
       </header>
-      <main className="flex-grow flex justify-center">
+      <main className={`flex-grow flex justify-center ${isMobile ? 'items-center' : 'none'}`}>
         <div className="text-center flex flex-col items-center a md:flex-row"> 
         <p className="text-black  text-4xl md:hidden sm:block font-semibold ">RELLY</p>
           <Image src="/assets/relly.png" alt="Image" width={isMobile ? 200 : 275} height={isMobile ? 150 : 350} className='rellyImg'/>
