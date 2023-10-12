@@ -33,10 +33,10 @@ const Welcome = () => {
         </div>
         <button className="text-white text-xl hidden md:block" onClick={() => router.push('/signIn')}>Already have? <span className='underline' >Sign in!</span></button>
       </header>
-      <main className={`flex-grow flex justify-center ${isMobile ? 'items-center' : 'none'}`}>
+      <main className={`flex-grow flex justify-center ${isMobile ? 'items-start' : 'none'}`}>
         <div className="text-center flex flex-col items-center a md:flex-row"> 
         <p className="text-black  text-4xl md:hidden sm:block font-semibold ">RELLY</p>
-          <Image src="/assets/relly.png" alt="Image" width={isMobile ? 200 : 275} height={isMobile ? 150 : 350} className={` ${isMobile ? 'mt-2' : 'rellyImg'}`}/>
+          <Image src="/assets/relly.png" alt="Image" width={isMobile ? 200 : 275} height={isMobile ? 150 : 350} className={` ${isMobile ? 'none' : 'rellyImg'}`}/>
           <div className="md:ml-4"> 
             <p className="text-black text-xl tracking-wider font-semibold mb-3 md:text-2xl md:mr-4 lg:mr-0">A Buddy You Can Rely On. Advice <br></br> You Can Count On.</p>
             <button className="first-welcome-button" onClick={() => router.push('/signUp')}>Try it for free</button>
@@ -48,14 +48,11 @@ const Welcome = () => {
           </div>
         </div>
       </main>
-      {!isMobile ? (
+      
         <footer className="text-center ">
         <button className={` text-white text-xl mb-10 underline `}>Learn more</button>
       </footer>
-      ) : (
-        <>
-        </>
-      )}
+      
       
     </div>
   );
