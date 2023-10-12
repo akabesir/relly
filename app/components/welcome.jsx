@@ -25,11 +25,11 @@ const Welcome = () => {
   }, []);
 
   return (
-    <div className="background flex flex-col justify-between h-screen p-4 md:p-0">
+    <div className="background flex flex-col justify-between align-center h-screen p-4 md:p-0">
       <header className="flex md:justify-between lg:justify-around p-4">
         <div className="flex items-center">
           <Image src="/assets/relly-black.png" alt="Logo" width={64} height={64} className='hidden lg:block md:block' />
-          <p className="text-black  text-2xl  md:mb-2 font-semibold hidden md:block">RELLY</p>
+          <p className="text-black  text-2xl  mb-2 font-semibold hidden md:block">RELLY</p>
         </div>
         <button className="text-white text-xl hidden md:block" onClick={() => router.push('/signIn')}>Already have? <span className='underline' >Sign in!</span></button>
       </header>
@@ -48,9 +48,9 @@ const Welcome = () => {
           </div>
         </div>
       </main>
-      {/* <footer className="text-center ">
+      <footer className="text-center ">
         <button className="text-white text-xl mt-10 mb-10 underline">Learn more</button>
-      </footer> */}
+      </footer>
     </div>
   );
 };
