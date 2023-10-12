@@ -36,7 +36,7 @@ const Welcome = () => {
       <main className="flex-grow flex justify-center">
         <div className="text-center flex flex-col items-center a md:flex-row"> 
         <p className="text-black  text-4xl md:hidden sm:block font-semibold ">RELLY</p>
-          <Image src="/assets/relly.png" alt="Image" width={isMobile ? 200 : 150} height={isMobile ? 275 : 350} className='rellyImg'/>
+          <Image src="/assets/relly.png" alt="Image" width={isMobile ? 200 : 275} height={isMobile ? 150 : 350} className='rellyImg'/>
           <div className="md:ml-4"> 
             <p className="text-black text-xl tracking-wider font-semibold mb-3 md:text-2xl md:mr-4 lg:mr-0">A Buddy You Can Rely On. Advice <br></br> You Can Count On.</p>
             <button className="first-welcome-button" onClick={() => router.push('/signUp')}>Try it for free</button>
