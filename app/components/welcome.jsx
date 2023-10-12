@@ -29,7 +29,7 @@ const Welcome = () => {
       <header className="flex md:justify-between lg:justify-around p-4">
         <div className="flex items-center">
           <Image src="/assets/relly-black.png" alt="Logo" width={64} height={64} className='hidden lg:block md:block' />
-          <p className={`text-black  text-2xl  mb-2 font-semibold hidden md:block ${isMobile ? 'items-center' : 'none'}`}>RELLY</p>
+          <p className={`text-black  text-2xl  mb-4 font-semibold hidden md:block ${isMobile ? 'items-center' : 'none'}`}>RELLY</p>
         </div>
         <button className="text-white text-xl hidden md:block" onClick={() => router.push('/signIn')}>Already have? <span className='underline' >Sign in!</span></button>
       </header>
@@ -49,7 +49,7 @@ const Welcome = () => {
         </div>
       </main>
       <footer className="text-center ">
-        <button className="text-white text-xl mt-10 mb-10 underline">Learn more</button>
+        <button className={` text-white text-xl ${isMobile? 'mt-6' : 'mt-10'} mb-10 underline `}>Learn more</button>
       </footer>
     </div>
   );
