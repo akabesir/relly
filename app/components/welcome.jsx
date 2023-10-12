@@ -81,7 +81,7 @@ const Welcome = () => {
     </div>
   </main>
   <footer className="text-center mb-4 md:mb-0">
-    <button className={`text-white mb-10 text-xl underline`}>
+    <button className={`text-white mb-10 ${isMobile ? 'nt' : ''} text-xl underline`}>
       Learn more
     </button>
   </footer>
