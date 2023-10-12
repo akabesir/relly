@@ -25,7 +25,7 @@ const ChatComponent = () => {
 
   const [nickname, setNickname] = useState("");
   const router = useRouter();
-  const [accessDeniedMessage, setAccessDeniedMessage] = useState(false);
+ 
 
   const [isMobile, setIsMobile] = useState(false);
 
@@ -50,8 +50,7 @@ const ChatComponent = () => {
         if (user) {
           setCurrentUser(user);
         } else {
-          setAccessDeniedMessage(true);
-
+          router.push('/signIn')
           
         }
       });
@@ -246,29 +245,6 @@ const ChatComponent = () => {
   };
 
 
-
-  if (accessDeniedMessage) {
-    return (
-      <div className="flex flex-col items-center justify-center min-h-screen">
-        <div className="bg-gray-100 p-8 rounded-md shadow-md text-gray-800 text-center">
-          <div className="text-5xl mb-4">❌</div>
-          <h1 className="text-4xl font-extrabold mb-4">Error 403</h1>
-          <p className="text-lg  font">
-            Sorry, but you don't have access to this page. Please sign in to continue.
-          </p>
-          <p className="text-lg mb-4">
-            If you believe this is an error, contact support at relly@support.com.
-          </p>
-          <button
-            className="second-welcome-button font-bold text-xl transition duration-300 ease-in-out transform hover:scale-105 hover:bg-pink-300"
-            onClick={() => router.push("/signIn")}
-          >
-            Sign In
-          </button>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="chatBg min-h-screen">
