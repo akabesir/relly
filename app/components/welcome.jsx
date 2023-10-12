@@ -25,7 +25,7 @@ const Welcome = () => {
   }, []);
 
   return (
-    <div className={`background flex flex-col justify-between  h-screen p-4 md:p-0 ${isMobile ? 'mt-10' : 'none'}`}>
+    <div className={`background flex flex-col justify-between  h-screen p-4 md:p-0 ${isMobile ? 'pt-10' : 'none'}`}>
       <header className="flex md:justify-between lg:justify-around p-4">
         <div className="flex items-center">
           <Image src="/assets/relly-black.png" alt="Logo" width={64} height={64} className='hidden lg:block md:block' />
@@ -50,7 +50,7 @@ const Welcome = () => {
       </main>
       
         <footer className="text-center ">
-        <button className={` text-white text-xl ${isMobile ? 'mb-20' : 'mb-10'} underline `}>Learn more</button>
+        <button className={` text-white text-xl mb-10 underline `}>Learn more</button>
       </footer>
       
       
