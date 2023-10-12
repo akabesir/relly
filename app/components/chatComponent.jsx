@@ -25,7 +25,7 @@ const ChatComponent = () => {
 
   const [nickname, setNickname] = useState("");
   const router = useRouter();
-  const [accessDeniedMessage, setAccessDeniedMessage] = useState('');
+  const [accessDeniedMessage, setAccessDeniedMessage] = useState(false);
 
   const [isMobile, setIsMobile] = useState(false);
 
@@ -50,7 +50,7 @@ const ChatComponent = () => {
         if (user) {
           setCurrentUser(user);
         } else {
-          setAccessDeniedMessage('Access Denied: User not authenticated');
+          setAccessDeniedMessage(true);
 
           
         }
