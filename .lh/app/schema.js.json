@@ -1,0 +1,82 @@
+{
+    "sourceFile": "app/schema.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 16,
+            "patches": [
+                {
+                    "date": 1697214952605,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1697214962324,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,5 +9,11 @@\n     .oneOf([Yup.ref('password'), null], 'Passwords must match')\r\n     .required('Password confirmation is required'),\r\n });\r\n \r\n+const signInSchema = Yup.object().shape({\r\n+    email: Yup.string().email('Invalid email address').required('Email is required'),\r\n+    password: Yup.string().required('Password is required'),\r\n+  });\r\n+  \r\n+\r\n export default signUpSchema;\r\n"
+                },
+                {
+                    "date": 1697214995281,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,7 @@\n import * as Yup from 'yup';\r\n \r\n-const signUpSchema = Yup.object().shape({\r\n+export const signUpSchema = Yup.object().shape({\r\n   firstName: Yup.string().required('First name is required'),\r\n   lastName: Yup.string().required('Last name is required'),\r\n   email: Yup.string().email('Invalid email address').required('Email is required'),\r\n   password: Yup.string().required('Password is required'),\r\n@@ -9,11 +9,10 @@\n     .oneOf([Yup.ref('password'), null], 'Passwords must match')\r\n     .required('Password confirmation is required'),\r\n });\r\n \r\n-const signInSchema = Yup.object().shape({\r\n+export const signInSchema = Yup.object().shape({\r\n     email: Yup.string().email('Invalid email address').required('Email is required'),\r\n     password: Yup.string().required('Password is required'),\r\n   });\r\n   \r\n \r\n-export default signUpSchema;\r\n"
+                },
+                {
+                    "date": 1697215036124,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,8 +11,8 @@\n });\r\n \r\n export const signInSchema = Yup.object().shape({\r\n     email: Yup.string().email('Invalid email address').required('Email is required'),\r\n-    password: Yup.string().required('Password is required'),\r\n+    password: Yup.string().password('Invalid password, try again').required('Password is required'),\r\n   });\r\n   \r\n \r\n"
+                },
+                {
+                    "date": 1697215099261,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,8 +11,8 @@\n });\r\n \r\n export const signInSchema = Yup.object().shape({\r\n     email: Yup.string().email('Invalid email address').required('Email is required'),\r\n-    password: Yup.string().password('Invalid password, try again').required('Password is required'),\r\n+    password: Yup.string().required('Password is required'),\r\n   });\r\n   \r\n \r\n"
+                },
+                {
+                    "date": 1697215108969,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,10 +9,11 @@\n     .oneOf([Yup.ref('password'), null], 'Passwords must match')\r\n     .required('Password confirmation is required'),\r\n });\r\n \r\n-export const signInSchema = Yup.object().shape({\r\n+const signInSchema = Yup.object().shape({\r\n     email: Yup.string().email('Invalid email address').required('Email is required'),\r\n-    password: Yup.string().required('Password is required'),\r\n+    password: Yup.string()\r\n+      .required('Password is required')\r\n+      .min(8, 'Password must be at least 8 characters long'),\r\n   });\r\n-  \r\n \r\n"
+                },
+                {
+                    "date": 1697215115254,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,9 +9,9 @@\n     .oneOf([Yup.ref('password'), null], 'Passwords must match')\r\n     .required('Password confirmation is required'),\r\n });\r\n \r\n-const signInSchema = Yup.object().shape({\r\n+export const signInSchema = Yup.object().shape({\r\n     email: Yup.string().email('Invalid email address').required('Email is required'),\r\n     password: Yup.string()\r\n       .required('Password is required')\r\n       .min(8, 'Password must be at least 8 characters long'),\r\n"
+                },
+                {
+                    "date": 1697215121208,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,7 +13,7 @@\n export const signInSchema = Yup.object().shape({\r\n     email: Yup.string().email('Invalid email address').required('Email is required'),\r\n     password: Yup.string()\r\n       .required('Password is required')\r\n-      .min(8, 'Password must be at least 8 characters long'),\r\n+      .min(6, 'Password must be at least 6 characters long'),\r\n   });\r\n \r\n"
+                },
+                {
+                    "date": 1697215237700,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -16,4 +16,6 @@\n       .required('Password is required')\r\n       .min(6, 'Password must be at least 6 characters long'),\r\n   });\r\n \r\n+  export {signInSchema, signUpSchema}\r\n+\r\n"
+                },
+                {
+                    "date": 1697215242909,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,21 @@\n+import * as Yup from 'yup';\r\n+\r\n+const signUpSchema = Yup.object().shape({\r\n+  firstName: Yup.string().required('First name is required'),\r\n+  lastName: Yup.string().required('Last name is required'),\r\n+  email: Yup.string().email('Invalid email address').required('Email is required'),\r\n+  password: Yup.string().required('Password is required'),\r\n+  passwordAgain: Yup.string()\r\n+    .oneOf([Yup.ref('password'), null], 'Passwords must match')\r\n+    .required('Password confirmation is required'),\r\n+});\r\n+\r\n+const signInSchema = Yup.object().shape({\r\n+    email: Yup.string().email('Invalid email address').required('Email is required'),\r\n+    password: Yup.string()\r\n+      .required('Password is required')\r\n+      .min(6, 'Password must be at least 6 characters long'),\r\n+  });\r\n+\r\n+  export {signInSchema, signUpSchema}\r\n+\r\n"
+                },
+                {
+                    "date": 1697215259597,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -16,27 +16,6 @@\n       .required('Password is required')\r\n       .min(6, 'Password must be at least 6 characters long'),\r\n   });\r\n \r\n-  export {signInSchema, signUpSchema}\r\n+  export default {signInSchema, signUpSchema}\r\n \r\n-import * as Yup from 'yup';\r\n-\r\n-export const signUpSchema = Yup.object().shape({\r\n-  firstName: Yup.string().required('First name is required'),\r\n-  lastName: Yup.string().required('Last name is required'),\r\n-  email: Yup.string().email('Invalid email address').required('Email is required'),\r\n-  password: Yup.string().required('Password is required'),\r\n-  passwordAgain: Yup.string()\r\n-    .oneOf([Yup.ref('password'), null], 'Passwords must match')\r\n-    .required('Password confirmation is required'),\r\n-});\r\n-\r\n-export const signInSchema = Yup.object().shape({\r\n-    email: Yup.string().email('Invalid email address').required('Email is required'),\r\n-    password: Yup.string()\r\n-      .required('Password is required')\r\n-      .min(6, 'Password must be at least 6 characters long'),\r\n-  });\r\n-\r\n-  export {signInSchema, signUpSchema}\r\n-\r\n"
+                },
+                {
+                    "date": 1697215323973,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -16,6 +16,5 @@\n       .required('Password is required')\r\n       .min(6, 'Password must be at least 6 characters long'),\r\n   });\r\n \r\n-  export default {signInSchema, signUpSchema}\r\n \r\n"
+                },
+                {
+                    "date": 1697215329816,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,7 @@\n import * as Yup from 'yup';\r\n \r\n-const signUpSchema = Yup.object().shape({\r\n+export const signUpSchema = Yup.object().shape({\r\n   firstName: Yup.string().required('First name is required'),\r\n   lastName: Yup.string().required('Last name is required'),\r\n   email: Yup.string().email('Invalid email address').required('Email is required'),\r\n   password: Yup.string().required('Password is required'),\r\n@@ -9,12 +9,13 @@\n     .oneOf([Yup.ref('password'), null], 'Passwords must match')\r\n     .required('Password confirmation is required'),\r\n });\r\n \r\n-const signInSchema = Yup.object().shape({\r\n+export const signInSchema = Yup.object().shape({\r\n     email: Yup.string().email('Invalid email address').required('Email is required'),\r\n     password: Yup.string()\r\n       .required('Password is required')\r\n       .min(6, 'Password must be at least 6 characters long'),\r\n   });\r\n \r\n \r\n+\r\n"
+                },
+                {
+                    "date": 1697215768986,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,9 +13,9 @@\n export const signInSchema = Yup.object().shape({\r\n     email: Yup.string().email('Invalid email address').required('Email is required'),\r\n     password: Yup.string()\r\n       .required('Password is required')\r\n-      .min(6, 'Password must be at least 6 characters long'),\r\n+      .min(6, 'Password too short'),\r\n   });\r\n \r\n \r\n \r\n"
+                },
+                {
+                    "date": 1697217467043,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,9 +6,9 @@\n   email: Yup.string().email('Invalid email address').required('Email is required'),\r\n   password: Yup.string().required('Password is required'),\r\n   passwordAgain: Yup.string()\r\n     .oneOf([Yup.ref('password'), null], 'Passwords must match')\r\n-    .required('Password confirmation is required'),\r\n+    .required('Field required'),\r\n });\r\n \r\n export const signInSchema = Yup.object().shape({\r\n     email: Yup.string().email('Invalid email address').required('Email is required'),\r\n"
+                },
+                {
+                    "date": 1697218485419,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,9 +3,9 @@\n export const signUpSchema = Yup.object().shape({\r\n   firstName: Yup.string().required('First name is required'),\r\n   lastName: Yup.string().required('Last name is required'),\r\n   email: Yup.string().email('Invalid email address').required('Email is required'),\r\n-  password: Yup.string().required('Password is required'),\r\n+  password: Yup.string()..min(6, 'Password too short'),required('Password is required'),\r\n   passwordAgain: Yup.string()\r\n     .oneOf([Yup.ref('password'), null], 'Passwords must match')\r\n     .required('Field required'),\r\n });\r\n"
+                },
+                {
+                    "date": 1697218493515,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,9 +3,9 @@\n export const signUpSchema = Yup.object().shape({\r\n   firstName: Yup.string().required('First name is required'),\r\n   lastName: Yup.string().required('Last name is required'),\r\n   email: Yup.string().email('Invalid email address').required('Email is required'),\r\n-  password: Yup.string()..min(6, 'Password too short'),required('Password is required'),\r\n+  password: Yup.string().min(6, 'Password too short').required('Password is required'),\r\n   passwordAgain: Yup.string()\r\n     .oneOf([Yup.ref('password'), null], 'Passwords must match')\r\n     .required('Field required'),\r\n });\r\n"
+                }
+            ],
+            "date": 1697214952605,
+            "name": "Commit-0",
+            "content": "import * as Yup from 'yup';\r\n\r\nconst signUpSchema = Yup.object().shape({\r\n  firstName: Yup.string().required('First name is required'),\r\n  lastName: Yup.string().required('Last name is required'),\r\n  email: Yup.string().email('Invalid email address').required('Email is required'),\r\n  password: Yup.string().required('Password is required'),\r\n  passwordAgain: Yup.string()\r\n    .oneOf([Yup.ref('password'), null], 'Passwords must match')\r\n    .required('Password confirmation is required'),\r\n});\r\n\r\nexport default signUpSchema;\r\n"
+        }
+    ]
+}

@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 33,
+            "activePatchIndex": 34,
             "patches": [
                 {
                     "date": 1695506529585,
@@ -140,6 +140,10 @@
                 {
                     "date": 1695761005228,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -67,9 +67,9 @@\n   return (\r\n     <div className=\"flex min-h-screen items-center justify-center background text-black\">\r\n       <div className=\"w-full max-w-xl mx-auto flex roundedFirst overflow-hidden\">\r\n         {!isMobile ? (\r\n-          <div className=\"w-1/2 p-8 text-center flex flex-col items-center joinRellyBg h-3/4 justify-center\">\r\n+          <div className=\"w-1/2 p-8 text-center flex flex-col items-center joinRellyBg h-3/5 justify-center\">\r\n             <Image\r\n               src=\"/assets/relly_wink_pointing_right.png\"\r\n               alt=\"Image\"\r\n               width={200}\r\n"
+                },
+                {
+                    "date": 1697215193684,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,9 +6,9 @@\n import { ToastContainer, toast } from 'react-toastify';\r\n import { auth, db } from '../firebase';\r\n import Image from 'next/image';\r\n import { Formik, Form, Field, ErrorMessage } from 'formik';\r\n-signInS\r\n+signInSc\r\n \r\n \r\n export default function Signin() {\r\n   const [email, setEmail] = useState('');\r\n"
                 }
             ],
             "date": 1695506529585,
