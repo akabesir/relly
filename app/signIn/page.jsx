@@ -111,7 +111,7 @@ export default function Signin() {
           </div>
 
           <p className="mt-6 text-center text-md font-semibold text-black md:text-sm">
-            Haven't started?{' '}
+            Have Not Started?
             <button onClick={() => router.push('signUp')} className="font-semibold leading-6 text-black underline">
               Sign Up
             </button>
