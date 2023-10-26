@@ -335,18 +335,149 @@
 
 }
 
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @keyframes bounce {
   0%, 20%, 50%, 80%, 100% {
     transform: translateY(0);
   }
   40% {
-    transform: translateY(-10px);
+    transform: translateY(-20px);
   }
   60% {
-    transform: translateY(-5px);
+    transform: translateY(-10px);
   }
 }
 
-.writting-animation {
-  animation: bounce 1s infinite;
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animated-logo {
+  animation: fadeInUp 2s ease-out;
+}
+
+.animated-welcome-button {
+  animation: fadeIn 1s ease-out;
+}
+
+
+.animated-signIn-text{
+  animation: fadeIn 2s ease-out;
+}
+
+.writting-animation {
+  animation: bounce 2s infinite;
+}
+
+
+.animated-logo-text {
+  animation: slideInLeft 2s ease-out;
+}
+
+.animated-main-title {
+  animation: fadeIn 2s ease-out;
+}
+
+.animated-main-image {
+  animation: scaleIn 2s ease-out;
+}
+
+.animated-main-text {
+  animation: fadeInRight 2s ease-out;
+}
+
+
+
+.animated-signin-button {
+  animation: fadeIn 2s ease-out;
+}
+
+.animated-learn-more {
+  animation: fadeInUp 2s ease-out;
+}
+
+.first-welcome-button:hover {
+ 
+  color: #FAFAFA;
+  background-color: #FF6666;
+  border-color: #FF6666;
+}
+
+.customButton:hover {
+  background-color: rgba(255, 191, 191, 1); 
+  transform: scale(1.05); 
+  transition: background-color 0.3s ease, transform 0.3s ease; 
+}
+
+.customMobileButton:hover {
+  background-color: #FF6666; 
+  color: #363636;
+  transform: scale(1.05); 
+  transition: background-color 0.3s ease, transform 0.3s ease; 
+}
+
+
+.second-welcome-button:hover {
+  background-color: #FF6666;
+  color: #FAFAFA;
+  border-color: #FF6666;
+}
+
+.animated-signIn-text:hover {
+  color: #363636; 
+}
+
+
+.animated-learn-more:hover {
+  color: #363636;
+}
+

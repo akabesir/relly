@@ -15,21 +15,19 @@ import { useRouter } from "next/navigation";
 import "../globals.css";
 
 const ChatComponent = () => {
-  const [inputMessage, setInputMessage] = useState("");
-  const [sessionId, setSessionId] = useState(null);
-  const [sessionDocumentId, setSessionDocumentId] = useState(null);
-  const [chatHistory, setChatHistory] = useState([]);
-  const [currentUser, setCurrentUser] = useState("");
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isWritting, setIsWritting] = useState(false);
-
+  const [inputMessage, setInputMessage] = useState(""); // userov input za poruke
+  const [sessionId, setSessionId] = useState(null); 
+  const [sessionDocumentId, setSessionDocumentId] = useState(null); 
+  const [chatHistory, setChatHistory] = useState([]); // varijabla koja sadrzi sav chatHistory, i koji se updejtuje
+  const [currentUser, setCurrentUser] = useState(""); 
+  const [isModalOpen, setIsModalOpen] = useState(false); // za settings modal
+  const [isWritting, setIsWritting] = useState(false); // stanje kad Relly pise poruke
   const [nickname, setNickname] = useState("");
-  const router = useRouter();
- 
+  const router = useRouter(); // router za pushanje na drugu stranicu
 
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(false); //mobile view
 
-
+  // sluzi za postavljanje sirine na mobile viewu
   useEffect(() => {
     setIsMobile(window.innerWidth <= 768);
 
@@ -44,42 +42,45 @@ const ChatComponent = () => {
     };
   }, []);
 
-  useEffect(() => {
+
+   // Provjerava da li je user loginovan
+   useEffect(() => {
     const checkForUser = () => {
       auth.onAuthStateChanged((user) => {
         if (user) {
-          setCurrentUser(user);
+          setCurrentUser(user); // ako jeste postavlja vrijednost currentUsera na objekat user 
         } else {
-          router.push('/signIn')
+          router.push('/signIn') // ako nije vraca ga na login page
           
         }
       });
     };
 
-    checkForUser();
+    checkForUser(); // pozivanje same funkcije
   }, []);
 
+  // funkcija koja nam sluzi da preuzmemo trenutno loginovanog usera i povezemo ga sa njegovim dokumentima u Firebaseu
   useEffect(() => {
     if (sessionId == null) {
       const getSessionId = async () => {
         if (currentUser) {
-          const user_id = await currentUser.uid;
+          const user_id = await currentUser.uid; // id trenutno prijavljenog usrra
 
           const q = query(
             collection(db, "session"),
-            where("user_id", "==", user_id)
+            where("user_id", "==", user_id) // povezivanje sa kolekcijom preko user_id-a
           );
           try {
-            const querySnapshot = await getDocs(q);
+            const querySnapshot = await getDocs(q); // preuzimanje svih dokumenata u kolekciji
             if (!querySnapshot.empty) {
-              const firstDoc = querySnapshot.docs[0];
+              const firstDoc = querySnapshot.docs[0]; // povezivanje sa prvim i jedinim dokumentom usera u bazi podataka
               setSessionId(firstDoc.id);
               setSessionDocumentId(firstDoc.id);
             } else {
-              console.error("Dokument ne postoji");
+              // console.error("Dokument ne postoji");
             }
           } catch (error) {
-            console.error("Greška prilikom dohvaćanja dokumenata", error);
+            // console.error("Greška prilikom dohvaćanja dokumenata", error);
           }
         }
       };
@@ -88,6 +89,8 @@ const ChatComponent = () => {
     }
   }, [currentUser, isWritting]);
 
+
+  // funkcija koja sluzi za dohvatanje Nicknamea koji je user unio prilikom pravljena acc-a
   useEffect(() => {
     const getNickname = async () => {
       if (currentUser) {
@@ -117,31 +120,33 @@ const ChatComponent = () => {
     getNickname();
   }, [currentUser]);
 
+
+  // Dohvatanje same historije chata
   useEffect(() => {
     const fetchChatHistory = async () => {
       try {
-        const response = await axios.post(
-          "https://relly-api-2ec2c3ee3308.herokuapp.com/message/get_messages",
+        const response = await axios.post( 
+          "https://relly-api-2ec2c3ee3308.herokuapp.com/message/get_messages", //saljemo api request na get_messages
           {
-            userId: currentUser.uid,
+            userId: currentUser.uid, // saljemo userov id
           }
         );
 
-        const chatMessages = response.data;
-        const formattedMessages = chatMessages.map((message) => ({
-          type: message.role === "user" ? "human" : "ai",
+        const chatMessages = response.data; // preuzimamo objekat poruka
+        const formattedMessages = chatMessages.map((message) => ({ // mapiramo kroz sve poruke
+          type: message.role === "user" ? "human" : "ai", // provjeravamo koji je role u poruci 
           data: {
-            content: message.content.split("\n").map((line, index, array) => (
-              <React.Fragment key={index}>
+            content: message.content.split("\n").map((line, index, array) => ( // Razdvajamo ih prema new line, i mapiramo kroz liniju
+              <React.Fragment key={index}> 
                 {line}
                 {index !== array.length - 1 && <br />} 
               </React.Fragment>
-            )),
+            )), // React Fragment nam sluzi samo da bi zamjenili "\n" sa html <br> tagom, kako bi razdvojili poruku prema new lineu
           },
           createdAt: message.timestamp,
         }));
     
-        setChatHistory(formattedMessages);
+        setChatHistory(formattedMessages); // postavljamo vrijednost chatHistorya na formattedMessages, kasnijemo mapiramo kroz taj chatHistory i dobivamo poruke
       } catch (error) {
         console.error("Greška prilikom dobijanja poruka:", error);
       }
@@ -151,20 +156,20 @@ const ChatComponent = () => {
   }, [currentUser.uid]);
 
   const handleSendMessage = async () => {
-    if (inputMessage.trim() === "") return;
+    if (inputMessage.trim() === "") return; // ako nema inputa ne moze se poslati poruka
   
     const timestamp = Timestamp.now();
   
-    setIsWritting(true);
+    setIsWritting(true); // relly typing se aktivira
   
-    setInputMessage("");
+    setInputMessage(""); // resetuje se input usera
   
     try {
       let sendMessageResponse;
   
-      if (sessionDocumentId) {
+      if (sessionDocumentId) { // ako user ima dokument samo se nadodaje u bazu podataka poruka
         setChatHistory((prevChatHistory) => [
-          ...prevChatHistory,
+          ...prevChatHistory, // setamo chatHistory na sve prethodne poruke, i samo dodajemo novu poruku sa svim potrebnim podacima (type, data, ...) jer kasnije mapiramo kroz chatHistory
           {
             type: "human",
             data: { content: inputMessage },
@@ -173,7 +178,7 @@ const ChatComponent = () => {
         ]);
   
         sendMessageResponse = await axios.post(
-          "https://relly-api-2ec2c3ee3308.herokuapp.com/message/send",
+          "https://relly-api-2ec2c3ee3308.herokuapp.com/message/send", 
           {
             userMessage: inputMessage,
             userId: currentUser.uid,
@@ -183,7 +188,7 @@ const ChatComponent = () => {
         );
   
       } else {
-        setChatHistory((prevChatHistory) => [
+        setChatHistory((prevChatHistory) => [ // ako nema onda se kreia novi dokument
           ...prevChatHistory,
           {
             type: "human",
@@ -192,7 +197,7 @@ const ChatComponent = () => {
           },
         ]);
   
-        sendMessageResponse = await axios.post(
+        sendMessageResponse = await axios.post( 
           "https://relly-api-2ec2c3ee3308.herokuapp.com/message/send",
           {
             userMessage: inputMessage,
@@ -211,7 +216,7 @@ const ChatComponent = () => {
         </React.Fragment>
       ));
       
-      setChatHistory((prevChatHistory) => [
+      setChatHistory((prevChatHistory) => [ // Dohvatamo sve poruke iz chatHistorya od AI-a, i svaku novu poruku samo ubacujemo u chatHistory varijablu
         ...prevChatHistory,
         {
           type: "ai",
@@ -226,15 +231,15 @@ const ChatComponent = () => {
     }
   };
   
-  const openModal = () => {
+  const openModal = () => { // za settings modal - open
     setIsModalOpen(true);
   };
 
-  const closeModal = () => {
+  const closeModal = () => { // za settings modal - zatvaranje
     setIsModalOpen(false);
   };
 
-  const handleSignOut = async () => {
+  const handleSignOut = async () => { // Funkcija za signOut usera
     try {
       await auth.signOut();
 
@@ -248,6 +253,8 @@ const ChatComponent = () => {
 
   return (
     <div className="chatBg min-h-screen">
+
+      {/* NAVBAR KOMPONENTE */}
       <div className="main-navbar-div">
         <div className={`mainColor p-2 flex justify items-center `}>
           <div className="flex items-center justify-center space-x-2 ">
@@ -275,6 +282,8 @@ const ChatComponent = () => {
           </div>
         </div>
       </div>
+      {/* KRAJ NAVBARA */}
+
       <div className={`p-2  mx-auto customChatWidth chat-container`}>
         {chatHistory.map((message, index) => (
           <div
@@ -315,6 +324,9 @@ const ChatComponent = () => {
           </div>
         ))}
 
+
+        {/* isWritting ? - Kada Relly Pise poruku */}
+        
         <div
           className={`bg-white p-2 inputRounded mx-auto mt-10 ${
             isWritting ? "writtingWidth" : "inputWidth"
@@ -340,6 +352,7 @@ const ChatComponent = () => {
               </div>
             </div>
           ) : (
+            // MESSAGE INPUT
             <>
               <div className="flex items-center space-x-2">
                 <svg
@@ -436,6 +449,8 @@ const ChatComponent = () => {
         </div>
       </div>
 
+
+      {/* SETTINGS MODAL POCETAK */}
       {isModalOpen && (
         <div className="fixed top-0 left-0 p w-full h-full flex items-center justify-center z-50">
           <div className="absolute top-0 left-0 w-full h-screen bg-black opacity-50"></div>
